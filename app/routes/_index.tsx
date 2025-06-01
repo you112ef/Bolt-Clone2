@@ -1,4 +1,5 @@
 import { json, type MetaFunction } from '@remix-run/cloudflare';
+import { Link } from '@remix-run/react'; // Import Link
 import { ClientOnly } from 'remix-utils/client-only';
 import { BaseChat } from '~/components/chat/BaseChat';
 import { Chat } from '~/components/chat/Chat.client';
@@ -22,6 +23,12 @@ export default function Index() {
     <div className="flex flex-col h-full w-full bg-bolt-elements-background-depth-1">
       <BackgroundRays />
       <Header />
+      {/* Add a link to the BoltDIY component */}
+      <div style={{ padding: '1rem', textAlign: 'center' }}>
+        <Link to="/boltdiy" style={{ color: '#bb33ff', textDecoration: 'underline' }}>
+          Go to BoltDIY Component
+        </Link>
+      </div>
       <ClientOnly fallback={<BaseChat />}>{() => <Chat />}</ClientOnly>
     </div>
   );
