@@ -23,10 +23,13 @@ export default function Index() {
     <div className="flex flex-col h-full w-full bg-bolt-elements-background-depth-1">
       <BackgroundRays />
       <Header />
-      {/* Add a link to the BoltDIY component */}
-      <div style={{ padding: '1rem', textAlign: 'center' }}>
+      {/* Links to demo/test components */}
+      <div style={{ padding: '1rem', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <Link to="/boltdiy" style={{ color: '#bb33ff', textDecoration: 'underline' }}>
           Go to BoltDIY Component
+        </Link>
+        <Link to="/mobileflow" style={{ color: '#66ccff', textDecoration: 'underline' }}>
+          Go to MobileFlow UI Component
         </Link>
       </div>
       <ClientOnly fallback={<BaseChat />}>{() => <Chat />}</ClientOnly>
