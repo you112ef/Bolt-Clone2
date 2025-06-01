@@ -196,14 +196,14 @@ export default function BoltDIY() {
           box-shadow: 0 0 40px #bb33ff88;
           display: flex;
           flex-direction: column;
-          background: #121212;
+  background: #000000; /* MODIFIED for OLED */
           color: #eee;
           user-select: none;
           overflow: hidden;
         }
 
         .dark-mode {
-          background: #121212;
+          background: #000000; /* MODIFIED for OLED */
           color: #eee;
         }
         .light-mode {
@@ -233,21 +233,28 @@ export default function BoltDIY() {
           flex-grow: 1;
           text-align: center;
           font-weight: 700;
-          font-size: 1.5rem;
+          font-size: 1.4rem; /* MODIFIED for better fit */
           color: #bb33ff;
           margin: 0;
           user-select: none;
+          word-wrap: break-word; /* ADDED */
+          word-break: break-word; /* ADDED */
         }
         .icon-btn {
           background: transparent;
           border: none;
           color: #bb33ff;
-          font-size: 1.6rem;
-          padding: 8px;
+  font-size: 1.6rem; /* Icon size */
+  padding: 10px; /* MODIFIED for larger touch target */
           border-radius: 50%;
           cursor: pointer;
           transition: box-shadow 0.2s ease;
           user-select: none;
+  min-width: 44px; /* ADDED */
+  min-height: 44px; /* ADDED */
+  display: inline-flex; /* ADDED */
+  align-items: center; /* ADDED */
+  justify-content: center; /* ADDED */
         }
         .icon-btn:hover,
         .icon-btn:focus {
@@ -328,7 +335,7 @@ export default function BoltDIY() {
           background: #bb33ff; /* Neon purple background */
           color: #1c003c; /* Dark icon color */
           font-size: 1.8rem; /* Larger icon */
-          padding: 8px 10px; /* Adjust padding for better shape */
+  padding: 12px; /* MODIFIED for better shape and touch target */
           border-radius: 50%; /* Circular button */
           border: none;
           cursor: pointer;
@@ -337,6 +344,8 @@ export default function BoltDIY() {
           align-items: center;
           justify-content: center;
           box-shadow: 0 0 10px #bb33ffcc; /* Neon glow */
+  min-width: 48px; /* ADDED */
+  min-height: 48px; /* ADDED */
         }
         .send-btn:hover,
         .send-btn:focus {
@@ -361,6 +370,7 @@ export default function BoltDIY() {
           color: #bb99ff; /* Lighter purple for setting text */
           padding: 10px 0;
           border-bottom: 1px solid #33006633; /* Subtle separator */
+          word-break: break-word; /* ADDED to allow text label to wrap */
         }
         .setting-item:last-child {
           border-bottom: none; /* No border for the last item */
@@ -375,12 +385,14 @@ export default function BoltDIY() {
           color: #eee;
           font-size: 1rem;
           min-width: 120px; /* Ensure select boxes have a decent width */
+  min-height: 44px; /* ADDED for touch target */
+  box-sizing: border-box; /* ADDED to include padding and border in min-height */
         }
         .setting-item input[type="checkbox"] {
           min-width: auto; /* Reset min-width for checkboxes */
           appearance: none;
-          width: 20px;
-          height: 20px;
+  width: 24px; /* MODIFIED */
+  height: 24px; /* MODIFIED */
           border-radius: 4px;
           position: relative;
           cursor: pointer;
@@ -397,7 +409,7 @@ export default function BoltDIY() {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          font-size: 14px;
+  font-size: 16px; /* MODIFIED for larger checkbox */
           color: #1c003c;
           visibility: hidden;
         }
