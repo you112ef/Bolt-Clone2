@@ -1,0 +1,125 @@
+.app {
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Orbitron', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+}
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  color: #bb33ff;
+}
+.chatArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 0;
+}
+.chatMessage {
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  max-width: 80%;
+}
+.chatMessage.ai {
+  background: #1c003c;
+  align-self: flex-start;
+}
+.chatMessage.user {
+  background: #440066;
+  align-self: flex-end;
+}
+.inputArea {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  background: #111;
+  border-top: 1px solid #333;
+}
+.inputArea input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #222;
+  color: #fff;
+}
+.sendBtn {
+  margin-left: 0.5rem;
+  background: #bb33ff;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  color: white;
+}
+.editorArea textarea {
+  width: 100%;
+  height: 100%;
+  background: #1c003c;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: monospace;
+  padding: 1rem;
+}
+.settingsArea label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+select, input[type='checkbox'] {
+  margin-top: 0.5rem;
+}
+
+// Added a new class for icon buttons
+.iconBtn {
+  background: none;
+  border: none;
+  color: #bb33ff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+// Added dark and light mode classes from the main div
+.darkMode {
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.lightMode {
+  background: #f0f0f0; // Example light mode background
+  color: #333; // Example light mode text color
+}
+
+// Class for right buttons container
+.rightButtons {
+  display: flex;
+  gap: 0.5rem; // Add some space between buttons
+}
+
+// Class for code editor
+.codeEditor {
+  width: 100%;
+  height: 100%;
+  background: #1c003c;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: monospace;
+  padding: 1rem;
+}
