@@ -4,6 +4,8 @@
   --font-body: 'Inter', sans-serif;
   --font-heading: 'Orbitron', sans-serif;
   --font-monospace: monospace;
+  --font-size-base: 0.875rem; // 14px
+  --border-radius-sm: 0.3rem;
 
   --primary-action-color: #FF7A59;
   --secondary-accent-color: #3498DB;
@@ -31,6 +33,8 @@
   --font-body: 'Inter', sans-serif;
   --font-heading: 'Orbitron', sans-serif;
   --font-monospace: monospace;
+  --font-size-base: 0.875rem; // 14px
+  --border-radius-sm: 0.3rem;
 
   --primary-action-color: #FF7A59;
   --secondary-accent-color: #5DADE2;
@@ -64,14 +68,14 @@
   font-family: var(--font-body);
   background: var(--background-color);
   color: var(--text-primary-color);
-  font-size: 1rem; // General font size
+  font-size: var(--font-size-base);
 }
 
 .screen {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0.75rem;
 }
 
 .header {
@@ -83,24 +87,24 @@
 
 .header h1 {
   font-family: var(--font-heading);
-  font-size: 1.5rem; // Heading font size
-  font-weight: 600; // Heading font weight
+  font-size: 1.3rem; // Adjusted from 1.5rem
+  font-weight: 600;
 }
 
 .chatArea {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem 0;
+  padding: 0.75rem 0;
 }
 
 .chatMessage {
-  margin: 0.5rem 0;
-  padding: 0.75rem 1rem; // Adjusted padding
-  border-radius: 1rem;
+  margin: 0.35rem 0;
+  padding: 0.6rem;
+  border-radius: 0.75rem;
   max-width: 80%;
   color: var(--text-primary-color);
-  font-size: 0.95rem; // Slightly smaller for chat messages
-  line-height: 1.4; // Improve readability
+  font-size: 0.9rem; // Adjusted from 0.95rem
+  line-height: 1.4;
 }
 
 .chatMessage.ai {
@@ -118,20 +122,20 @@
 .inputArea {
   display: flex;
   align-items: center;
-  padding: 0.75rem; // Increased padding
+  padding: 0.4rem;
   background: var(--input-area-bg-color);
   border-top: 1px solid var(--border-color);
 }
 
 .inputArea input {
   flex: 1;
-  padding: 0.75rem; // Increased padding
+  padding: 0.4rem;
   border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
   background: var(--input-field-bg-color);
   color: var(--input-field-text-color);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: var(--font-size-base); // Use base font size
 }
 
 .inputArea input:focus {
@@ -141,12 +145,12 @@
 }
 
 .sendBtn {
-  margin-left: 0.75rem; // Increased margin
+  margin-left: 0.4rem;
   background: var(--send-btn-bg-color);
   border: none;
   border-radius: 50%;
-  width: 3rem; // Increased size
-  height: 3rem; // Increased size
+  width: 2.2rem;
+  height: 2.2rem;
   // font-size removed as icon size is controlled by SVG component's prop
   color: var(--send-btn-text-color);
   cursor: pointer;
@@ -171,11 +175,11 @@
   background: var(--editor-bg-color);
   color: var(--editor-text-color);
   border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
   font-family: var(--font-monospace);
-  padding: 1rem;
-  font-size: 0.9rem; // Monospace font size
-  line-height: 1.5; // For code readability
+  padding: 0.75rem;
+  font-size: 0.85rem; // Adjusted from 0.9rem
+  line-height: 1.5;
 }
 
 .codeEditor:focus {
@@ -194,29 +198,42 @@
   flex-direction: row; // Changed to row for better alignment of label text and input
   justify-content: space-between;
   align-items: center; // Vertically align items in the center
-  margin-bottom: 1.25rem; // Increased margin
+  margin-bottom: 0.75rem;
   color: var(--settings-label-color);
-  font-size: 0.9rem; // Label font size
+  font-size: 0.85rem; // Adjusted from 0.9rem
 }
 
-.settingsArea select,
+.settingsArea select {
+  margin-left: 1rem;
+  margin-top: 0.3rem;
+  padding: 0.35rem 0.5rem; // Reduced padding
+  background-color: var(--surface-color); // Changed from --input-field-bg-color
+  color: var(--text-primary-color); // Changed from --input-field-text-color
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.8rem; // Slightly smaller font for select content
+}
+
 .settingsArea input[type='checkbox'] {
   margin-left: 1rem; // Add margin to separate from label text
-  padding: 0.5rem 0.75rem; // Adjusted padding
-  background-color: var(--input-field-bg-color);
-  color: var(--input-field-text-color);
-  border: 1px solid var(--border-color);
-  border-radius: 0.375rem; // Slightly more rounded
-  font-family: var(--font-body);
-  font-size: 0.9rem;
+  margin-top: 0.3rem; // From previous step, ensure it's aligned
+  // transform: scale(0.9); // Optional, decided not to use for now
+  // Standard checkbox styling is limited, focus on alignment and spacing
+  // Ensure it aligns well with the text which is font-size: 0.85rem;
+  // May need to adjust vertical-align if it looks off with the label text
+  vertical-align: middle; // Attempt to align checkbox with label text better
 }
 
-.settingsArea select:focus,
-.settingsArea input[type='checkbox']:focus {
+.settingsArea select:focus { // Separated focus styles for select
   outline: none;
   border-color: var(--primary-action-color);
   box-shadow: 0 0 0 2px var(--primary-action-color-translucent, rgba(255, 122, 89, 0.3));
 }
+
+// No specific focus style for standard checkbox, browser default is usually fine
+// or would require more complex custom checkbox styling.
+// .settingsArea input[type='checkbox']:focus { }
 
 
 .iconBtn {
@@ -241,5 +258,67 @@
 
 .rightButtons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.35rem;
+}
+
+@media (max-width: 768px) {
+  .screen {
+    padding: 0.6rem; // Further reduced padding for mobile
+  }
+
+  .header h1 {
+    font-size: 1.1rem; // Slightly smaller header title on mobile (was 1.3rem)
+  }
+
+  .chatMessage {
+    padding: 0.5rem 0.75rem; // Smaller padding
+    border-radius: 0.6rem; // Adjust border radius
+    font-size: 0.85rem; // Slightly smaller chat message text (was 0.9rem)
+    // max-width: 90%; // Decided against this to keep consistent side alignment
+  }
+
+  .inputArea {
+    padding: 0.3rem; // Reduced padding
+  }
+
+  .inputArea input {
+    padding: 0.35rem; // Ensure input is still usable
+    font-size: var(--font-size-base); // Keep base font size for readability
+  }
+
+  .sendBtn {
+    width: 2rem; // Slightly smaller send button
+    height: 2rem;
+    // Icon size is controlled by prop in TSX, this just makes button smaller
+  }
+
+  .settingsArea label {
+    font-size: 0.8rem; // Slightly smaller labels in settings (was 0.85rem)
+    margin-bottom: 0.6rem; // Tighter spacing
+  }
+
+  .settingsArea select {
+    padding: 0.3rem 0.4rem;
+    font-size: 0.75rem; // Make select text a bit smaller on mobile
+  }
+
+  .settingsArea input[type='checkbox'] {
+    transform: scale(0.9); // Slightly scale down checkbox for smaller screens
+    margin-top: 0.2rem; // Adjust alignment after scaling
+  }
+
+  .codeEditor {
+    padding: 0.5rem;
+    font-size: 0.75rem; // Code editor font smaller on mobile (was 0.85rem)
+  }
+
+  .rightButtons {
+    gap: 0.25rem; // Reduce gap for header buttons
+  }
+
+  .iconBtn { // Reduce size of icon buttons in header
+    width: 2rem;
+    height: 2rem;
+    // SVG icon size controlled by prop, this makes the button smaller
+  }
 }
