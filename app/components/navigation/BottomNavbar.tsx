@@ -11,6 +11,11 @@ const navItems = [
   { id: 'search', label: 'Search', icon: 'search', path: '/search' },
   { id: 'notifications', label: 'Notifications', icon: 'notifications', path: '/notifications' },
   { id: 'profile', label: 'Profile', icon: 'person', path: '/profile' },
+  // Example of how bolt.diy links could be conceptualized here:
+  // { id: 'boltdiyChat', label: 'BoltDIY Chat', icon: 'bolt', path: '/boltdiy/chat' },
+  // { id: 'boltdiyEditor', label: 'BoltDIY Editor', icon: 'code', path: '/boltdiy/editor' },
+  // TODO: Consider if bolt.diy screens should be part of this global bottom nav or have their own navigation (e.g. a main /boltdiy route that then internally navigates).
+  // For now, these are conceptual and not added to the rendered items.
 ];
 
 export function BottomNavbar() {
