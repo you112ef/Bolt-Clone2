@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import styles from './BoltDIY.module.scss';
 
-export default function BoltDIY() { const [page, setPage] = useState("chat"); const [darkMode, setDarkMode] = useState(true); const [aiModel, setAiModel] = useState("llama"); const [language, setLanguage] = useState("ar"); const [storage, setStorage] = useState("localStorage"); const [prompt, setPrompt] = useState(""); const [messages, setMessages] = useState([ { id: 1, from: "ai", text: "مرحبًا بك! كيف يمكنني مساعدتك اليوم؟" }, ]); const [code, setCode] = useState("// اكتب كودك هنا
-");
+export default function BoltDIY() { const [page, setPage] = useState("chat"); const [darkMode, setDarkMode] = useState(true); const [aiModel, setAiModel] = useState("llama"); const [language, setLanguage] = useState("ar"); const [storage, setStorage] = useState("localStorage"); const [prompt, setPrompt] = useState(""); const [messages, setMessages] = useState([ { id: 1, from: "ai", text: "مرحبًا بك! كيف يمكنني مساعدتك اليوم؟" }, ]); const [code, setCode] = useState("// اكتب كودك هنا\n");
 
 const sendPrompt = () => { if (!prompt.trim()) return; setMessages((m) => [...m, { id: Date.now(), from: "user", text: prompt }]); setPrompt(""); setTimeout(() => { setMessages((m) => [ ...m, { id: Date.now() + 1, from: "ai", text: "تم استلام طلبك، جاري المعالجة..." }, ]); }, 900); };
 
-const runCode = () => alert("تشغيل الكود:
-" + code);
+const runCode = () => alert("تشغيل الكود:\n" + code);
 
 const Header = ({ title, leftButton, rightButtons }) => ( <header className={styles.header}> {leftButton && <button className={styles.iconBtn} onClick={leftButton.onClick}>{leftButton.icon}</button>} <h1>{title}</h1> <div className={styles.rightButtons}> {rightButtons && rightButtons.map((btn, i) => ( <button key={i} className={styles.iconBtn} onClick={btn.onClick}>{btn.icon}</button> ))} </div> </header> );
 
