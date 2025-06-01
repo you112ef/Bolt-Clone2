@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ClientOnly } from 'remix-utils/client-only';
+import BottomNavbar from './components/navigation/BottomNavbar';
 
 import reactToastifyStyles from 'react-toastify/dist/ReactToastify.css?url';
 import globalStyles from './styles/index.scss?url';
@@ -61,6 +62,7 @@ export const Head = createHead(() => (
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Meta />
     <Links />
+    {/* Add Material Design Icons CSS link here */}
     <script dangerouslySetInnerHTML={{ __html: inlineThemeCode }} />
   </>
 ));
@@ -69,15 +71,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const theme = useStore(themeStore);
 
   useEffect(() => {
-    document.querySelector('html')?.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('lang', 'ar');
+    document.documentElement.setAttribute('dir', 'rtl');
   }, [theme]);
 
   return (
-    <>
-      <ClientOnly>{() => <DndProvider backend={HTML5Backend}>{children}</DndProvider>}</ClientOnly>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      {/* Header might be here (ensure it's outside main if it's sticky or fixed) */}
+      <main style={{ flexGrow: 1, paddingBottom: '56px' /* To prevent content overlap */ }}>
+        <ClientOnly>{() => <DndProvider backend={HTML5Backend}>{children}</DndProvider>}</ClientOnly>
+      </main>
+      <BottomNavbar /> {/* Add the BottomNavbar here */}
       <ScrollRestoration />
       <Scripts />
-    </>
+    </div>
   );
 }
 

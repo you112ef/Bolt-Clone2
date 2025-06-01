@@ -15,12 +15,18 @@ const buttonVariants = cva(
           'bg-bolt-elements-background-depth-1 text-bolt-elements-textPrimary hover:bg-bolt-elements-background-depth-2',
         ghost: 'hover:bg-bolt-elements-background-depth-1 hover:text-bolt-elements-textPrimary',
         link: 'text-bolt-elements-textPrimary underline-offset-4 hover:underline',
+        'neon-purple': 'bg-[var(--neon-purple)] text-white hover:bg-[color-mix(in_srgb,_var(--neon-purple)_90%,_black)]',
+        'neon-blue': 'bg-[var(--neon-blue)] text-white hover:bg-[color-mix(in_srgb,_var(--neon-blue)_90%,_black)]',
+        'outline-neon-purple':
+          'border border-[var(--neon-purple)] text-[var(--neon-purple)] hover:bg-[color-mix(in_srgb,_var(--neon-purple)_10%,_transparent)]',
+        'outline-neon-blue':
+          'border border-[var(--neon-blue)] text-[var(--neon-blue)] hover:bg-[color-mix(in_srgb,_var(--neon-blue)_10%,_transparent)]',
       },
       size: {
-        default: 'h-9 px-4 py-2',
-        sm: 'h-8 rounded-md px-3 text-xs',
-        lg: 'h-10 rounded-md px-8',
-        icon: 'h-9 w-9',
+        default: 'min-h-[48px] px-4',
+        sm: 'min-h-[48px] px-3 text-xs',
+        lg: 'min-h-[48px] px-8',
+        icon: 'h-[48px] w-[48px]',
       },
     },
     defaultVariants: {

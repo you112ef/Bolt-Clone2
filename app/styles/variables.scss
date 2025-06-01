@@ -1,6 +1,8 @@
 /* Color Tokens Light Theme */
 :root,
 :root[data-theme='light'] {
+  --neon-purple: #8B5CF6;
+  --neon-blue: #3B82F6;
   --bolt-elements-borderColor: theme('colors.alpha.gray.10');
   --bolt-elements-borderColorActive: theme('colors.accent.600');
 
@@ -112,10 +114,10 @@
   --bolt-elements-borderColor: theme('colors.alpha.white.10');
   --bolt-elements-borderColorActive: theme('colors.accent.500');
 
-  --bolt-elements-bg-depth-1: theme('colors.gray.950');
-  --bolt-elements-bg-depth-2: theme('colors.gray.900');
-  --bolt-elements-bg-depth-3: theme('colors.gray.800');
-  --bolt-elements-bg-depth-4: theme('colors.alpha.white.5');
+  --bolt-elements-bg-depth-1: #1C2526;
+  --bolt-elements-bg-depth-2: #2A3435; /* Example: 5-10% lighter */
+  --bolt-elements-bg-depth-3: #384344; /* Example: 10-15% lighter */
+  --bolt-elements-bg-depth-4: #0E1313; /* Example: 5-10% darker for contrast if needed, or another lighter shade */
 
   --bolt-elements-textPrimary: theme('colors.white');
   --bolt-elements-textSecondary: theme('colors.gray.400');

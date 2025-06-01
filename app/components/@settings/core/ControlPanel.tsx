@@ -66,6 +66,29 @@ interface AnimatedSwitchProps {
   label: string;
 }
 
+const TAB_SECTIONS: Record<TabType, string> = {
+  profile: 'General',
+  settings: 'General',
+  notifications: 'General',
+  connection: 'General',
+  data: 'General',
+  update: 'General',
+  'event-logs': 'General',
+  'tab-management': 'General',
+  features: 'Appearance',
+  'cloud-providers': 'Intelligence',
+  'local-providers': 'Intelligence',
+  'service-status': 'Intelligence',
+  debug: 'Intelligence',
+  'task-manager': 'Intelligence',
+};
+const SECTION_ORDER = ['General', 'Appearance', 'Intelligence'];
+const SECTION_LABELS_AR = {
+  'General': 'عام',
+  'Appearance': 'مظهر',
+  'Intelligence': 'ذكاء'
+};
+
 const TAB_DESCRIPTIONS: Record<TabType, string> = {
   profile: 'Manage your profile and account settings',
   settings: 'Configure application preferences',
@@ -517,31 +540,53 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                     ) : activeTab ? (
                       getTabComponent(activeTab)
                     ) : (
-                      <motion.div
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative"
-                        variants={gridLayoutVariants}
-                        initial="hidden"
-                        animate="visible"
-                      >
-                        <AnimatePresence mode="popLayout">
-                          {(visibleTabs as TabWithDevType[]).map((tab: TabWithDevType) => (
-                            <motion.div key={tab.id} layout variants={itemVariants} className="aspect-[1.5/1]">
-                              <TabTile
-                                tab={tab}
-                                onClick={() => handleTabClick(tab.id as TabType)}
-                                isActive={activeTab === tab.id}
-                                hasUpdate={getTabUpdateStatus(tab.id)}
-                                statusMessage={getStatusMessage(tab.id)}
-                                description={TAB_DESCRIPTIONS[tab.id]}
-                                isLoading={loadingTab === tab.id}
-                                className="h-full relative"
-                              >
-                                {BETA_TABS.has(tab.id) && <BetaLabel />}
-                              </TabTile>
+                      SECTION_ORDER.map((sectionName) => {
+                        const sectionTabs = (visibleTabs as TabWithDevType[]).filter(
+                          (tab) => TAB_SECTIONS[tab.id as TabType] === sectionName
+                        );
+
+                        if (sectionTabs.length === 0) {
+                          return null;
+                        }
+
+                        return (
+                          <div key={sectionName} className="mb-8">
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                              {SECTION_LABELS_AR[sectionName as keyof typeof SECTION_LABELS_AR] || sectionName}
+                            </h2>
+                            <motion.div
+                              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative"
+                              variants={gridLayoutVariants}
+                              initial="hidden"
+                              animate="visible"
+                            >
+                              <AnimatePresence mode="popLayout">
+                                {sectionTabs.map((tab: TabWithDevType) => (
+                                  <motion.div key={tab.id} layout variants={itemVariants} className="aspect-[1.5/1]">
+                                    {/* TODO: Scale down secondary text/elements by 20% as per design requirements */}
+                                    {/* For example, if TabTile has a description element, a class could be added there,
+                                        and that class would have transform: scale(0.8); or font-size: 0.8em;
+                                        (adjusting line-height accordingly). */}
+                                    <TabTile
+                                      tab={tab}
+                                      onClick={() => handleTabClick(tab.id as TabType)}
+                                      isActive={activeTab === tab.id}
+                                      hasUpdate={getTabUpdateStatus(tab.id)}
+                                      statusMessage={getStatusMessage(tab.id)}
+                                      description={TAB_DESCRIPTIONS[tab.id as TabType]}
+                                      isLoading={loadingTab === tab.id}
+                                      className="h-full relative"
+                                    >
+                                      {/* TODO: Replace with Material Design icon for [tab.id] */}
+                                      {BETA_TABS.has(tab.id as TabType) && <BetaLabel />}
+                                    </TabTile>
+                                  </motion.div>
+                                ))}
+                              </AnimatePresence>
                             </motion.div>
-                          ))}
-                        </AnimatePresence>
-                      </motion.div>
+                          </div>
+                        );
+                      })
                     )}
                   </motion.div>
                 </div>

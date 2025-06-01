@@ -70,3 +70,30 @@ body {
   // Firefox support for inverted colors
   scrollbar-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 50%) transparent;
 }
+
+/* Effects */
+.effect-blur {
+  backdrop-filter: blur(8px);
+}
+.effect-glow-purple {
+  box-shadow: 0 0 4px var(--neon-purple);
+}
+.effect-glow-blue {
+  box-shadow: 0 0 4px var(--neon-blue);
+}
+.effect-shadow {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* RTL Styles */
+[dir="rtl"] {
+  body {
+    text-align: right;
+  }
+
+  /* Add more specific RTL rules for components as needed */
+  // TODO: Audit components for specific RTL adjustments (margins, paddings, text-align).
+}
+
+/* Responsive Design */
+/* TODO: Perform thorough responsive design testing across various screen sizes (360px - 2560px). Ensure CSS Grid/Flexbox are utilized effectively. */
