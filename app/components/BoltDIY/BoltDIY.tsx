@@ -456,8 +456,7 @@ export default function BoltDIY() {
         [aria-label] {
           /* Consider adding visual cues for aria-labels in a debug mode */
         }
-
-      </style>
+      `}</style>  {/* Added backtick here */}
     </div>
   );
 }
