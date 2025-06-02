@@ -1,3 +1,19 @@
+// This component is designed to be used on pages or sections that have no content yet,
+// or for onboarding new users. It provides a clear visual cue with an icon,
+// a title, a descriptive message, and optional call-to-action buttons.
+//
+// Example usage in a page component (e.g., Dashboard, Flows, Campaigns):
+// if (isEmptyData) {
+//   return (
+//     <EmptyState
+//       icon="i-ph:rocket-launch-duotone"
+//       title="Blast Off with Your First Campaign!"
+//       description="It looks like you haven't created any campaigns yet. Get started by launching your first one."
+//       actionLabel="Create New Campaign"
+//       onAction={() => navigate('/campaigns/new')}
+//     />
+//   );
+// }
 import React from 'react';
 import { classNames } from '~/utils/classNames';
 import { Button } from './Button';
@@ -86,9 +102,9 @@ export function EmptyState({
   return (
     <div
       className={classNames(
-        'flex flex-col items-center justify-center',
-        'text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark',
-        'bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-3 rounded-lg',
+        'flex flex-col items-center justify-center text-center', // Added text-center for overall content alignment
+        'text-text/75', // Default text color for the container (secondary-like)
+        'bg-background/50 rounded-lg', // Updated background
         styles.container,
         className,
       )}
@@ -96,7 +112,7 @@ export function EmptyState({
       {/* Icon */}
       <div
         className={classNames(
-          'rounded-full bg-bolt-elements-background-depth-3 dark:bg-bolt-elements-background-depth-4 flex items-center justify-center',
+          'rounded-full bg-primary/10 flex items-center justify-center', // Updated icon container background
           styles.icon.container,
         )}
       >
@@ -104,19 +120,19 @@ export function EmptyState({
           className={classNames(
             icon,
             styles.icon.size,
-            'text-bolt-elements-textTertiary dark:text-bolt-elements-textTertiary-dark',
+            'text-primary', // Updated icon color
           )}
         />
       </div>
 
       {/* Title */}
-      <p className={classNames('font-medium', styles.title)}>{title}</p>
+      <p className={classNames('font-medium text-text', styles.title)}>{title}</p> {/* Title uses primary text color */}
 
       {/* Description */}
       {description && (
         <p
           className={classNames(
-            'text-bolt-elements-textTertiary dark:text-bolt-elements-textTertiary-dark text-center max-w-xs',
+            'text-text/60 text-center max-w-xs', // Updated description text color
             styles.description,
           )}
         >
@@ -126,14 +142,14 @@ export function EmptyState({
 
       {/* Action buttons */}
       {(actionLabel || secondaryActionLabel) && (
-        <div className={classNames('flex items-center gap-2', styles.actions)}>
+        <div className={classNames('flex items-center gap-3', styles.actions)}> {/* Increased gap slightly */}
           {actionLabel && onAction && (
             <motion.div {...buttonAnimation}>
               <Button
                 onClick={onAction}
-                variant="default"
+                variant="default" // This will now use the new primary button style
                 size={styles.buttonSize}
-                className="bg-purple-500 hover:bg-purple-600 text-white"
+                // Removed direct bg-purple classes, relies on variant="default"
               >
                 {actionLabel}
               </Button>
@@ -142,7 +158,11 @@ export function EmptyState({
 
           {secondaryActionLabel && onSecondaryAction && (
             <motion.div {...buttonAnimation}>
-              <Button onClick={onSecondaryAction} variant="outline" size={styles.buttonSize}>
+              <Button 
+                onClick={onSecondaryAction} 
+                variant="outline" // This will use the new outline button style
+                size={styles.buttonSize}
+              >
                 {secondaryActionLabel}
               </Button>
             </motion.div>

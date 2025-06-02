@@ -20,6 +20,15 @@ const customIconCollection = iconPaths.reduce(
 );
 
 const BASE_COLORS = {
+  // New palette
+  primary: '#4F46E5',
+  secondary: '#10B981',
+  accent: '#FACC15', // New accent color
+  background: '#F9FAFB',
+  text: '#111827',
+  border: '#E5E7EB',
+
+  // Existing colors (keeping white, gray, green, orange, red)
   white: '#FFFFFF',
   gray: {
     50: '#FAFAFA',
@@ -34,19 +43,8 @@ const BASE_COLORS = {
     900: '#171717',
     950: '#0A0A0A',
   },
-  accent: {
-    50: '#F8F5FF',
-    100: '#F0EBFF',
-    200: '#E1D6FF',
-    300: '#CEBEFF',
-    400: '#B69EFF',
-    500: '#9C7DFF',
-    600: '#8A5FFF',
-    700: '#7645E8',
-    800: '#6234BB',
-    900: '#502D93',
-    950: '#2D1959',
-  },
+  // The original accent scale is replaced by the single accent color.
+  // If the scale is still needed, it should be renamed, e.g., accentScale.
   green: {
     50: '#F0FDF4',
     100: '#DCFCE7',
@@ -85,15 +83,20 @@ const BASE_COLORS = {
     900: '#7F1D1D',
     950: '#450A0A',
   },
+  // Note: primary, secondary, accent, background, text, border are now at the top level of BASE_COLORS
 };
 
 const COLOR_PRIMITIVES = {
-  ...BASE_COLORS,
+  ...BASE_COLORS, // Spreads all colors from BASE_COLORS, including the new palette
   alpha: {
     white: generateAlphaPalette(BASE_COLORS.white),
-    gray: generateAlphaPalette(BASE_COLORS.gray[900]),
-    red: generateAlphaPalette(BASE_COLORS.red[500]),
-    accent: generateAlphaPalette(BASE_COLORS.accent[500]),
+    gray: generateAlphaPalette(BASE_COLORS.gray[900]), // Assuming gray is still a scale
+    red: generateAlphaPalette(BASE_COLORS.red[500]),    // Assuming red is still a scale
+    // If accent needs an alpha scale, it should use BASE_COLORS.accent (the new single color)
+    // For example: accent: generateAlphaPalette(BASE_COLORS.accent),
+    // Or, if the old accent scale's alpha was intended, that needs clarification.
+    // For now, removing alpha accent generation to avoid using the old scale.
+    // If an alpha variant of the new accent is needed, it can be added here.
   },
 };
 
@@ -114,7 +117,7 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      ...COLOR_PRIMITIVES,
+      ...COLOR_PRIMITIVES, // This now correctly includes the new palette colors
       bolt: {
         elements: {
           borderColor: 'var(--bolt-elements-borderColor)',

@@ -65,6 +65,10 @@ export const Head = createHead(() => (
   </>
 ));
 
+import { TopNavBar } from '~/components/navigation/TopNavBar';
+import { SidebarNav } from '~/components/navigation/SidebarNav';
+import { BottomTabNav } from '~/components/navigation/BottomTabNav';
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const theme = useStore(themeStore);
 
@@ -73,11 +77,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }, [theme]);
 
   return (
-    <>
-      <ClientOnly>{() => <DndProvider backend={HTML5Backend}>{children}</DndProvider>}</ClientOnly>
+    <div className="flex flex-col min-h-screen bg-background">
+      <ClientOnly>
+        {() => (
+          <DndProvider backend={HTML5Backend}>
+            {/* Desktop Navigation - Sidebar is fixed, shown on md+ */}
+            <SidebarNav />
+            {/* Content area that flexes */}
+            <div className="flex flex-col flex-1 md:ml-64"> {/* Margin for sidebar */}
+              {/* Desktop Navigation - Topbar is part of this flex column, shown on md+ */}
+              <TopNavBar />
+              {/* Main Content Area */}
+              {/* Padding: p-4 for all sides on mobile. */}
+              {/* pb-20 for mobile to account for BottomTabNav (h-16 + p-4) */}
+              {/* On desktop (md+): TopNavBar is h-16, so main content doesn't need pt. Sidebar is handled by ml-64. */}
+              <main className="flex-1 p-4 pb-20 md:pb-4 md:pt-4">
+                {children}
+              </main>
+            </div>
+            {/* Mobile Navigation - Fixed at bottom, shown unless md+ */}
+            <BottomTabNav />
+          </DndProvider>
+        )}
+      </ClientOnly>
       <ScrollRestoration />
       <Scripts />
-    </>
+    </div>
   );
 }
 

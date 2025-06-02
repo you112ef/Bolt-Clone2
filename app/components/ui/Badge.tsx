@@ -5,29 +5,29 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { classNames } from '~/utils/classNames';
 
 const badgeVariants = cva(
-  'inline-flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-bolt-elements-ring focus:ring-offset-2',
+  'inline-flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2', // Updated focus ring
   {
     variants: {
       variant: {
         default:
-          'border-transparent bg-bolt-elements-background text-bolt-elements-textPrimary hover:bg-bolt-elements-background/80',
+          'border-transparent bg-background text-text hover:bg-background/80', // Updated colors
         secondary:
-          'border-transparent bg-bolt-elements-background text-bolt-elements-textSecondary hover:bg-bolt-elements-background/80',
-        destructive: 'border-transparent bg-red-500/10 text-red-500 hover:bg-red-500/20',
-        outline: 'text-bolt-elements-textPrimary',
-        primary: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
-        success: 'bg-green-500/10 text-green-600 dark:text-green-400',
-        warning: 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400',
-        danger: 'bg-red-500/10 text-red-600 dark:text-red-400',
-        info: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+          'border-transparent bg-secondary/10 text-secondary hover:bg-secondary/20', // Updated colors
+        destructive: 'border-transparent bg-red-500/10 text-red-500 hover:bg-red-500/20', // Kept as is
+        outline: 'text-text border border-border', // Updated colors and added border
+        primary: 'border-transparent bg-primary/10 text-primary hover:bg-primary/20', // Updated colors
+        success: 'border-transparent bg-green-500/10 text-green-600 hover:bg-green-500/20', // Kept as is, specific green
+        warning: 'border-transparent bg-accent/10 text-accent hover:bg-accent/20', // Using accent color
+        danger: 'border-transparent bg-red-500/10 text-red-600 hover:bg-red-500/20', // Kept as is (same as destructive but specific "danger" variant name)
+        info: 'border-transparent bg-blue-500/10 text-blue-600 hover:bg-blue-500/20', // Kept as is, specific blue
         subtle:
-          'border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30 bg-white/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark',
+          'border border-border/30 bg-background/50 backdrop-blur-sm text-text/75', // Updated colors
       },
       size: {
-        default: 'rounded-full px-2.5 py-0.5 text-xs font-semibold',
-        sm: 'rounded-full px-1.5 py-0.5 text-xs',
-        md: 'rounded-md px-2 py-1 text-xs font-medium',
-        lg: 'rounded-md px-2.5 py-1.5 text-sm',
+        default: 'rounded-full px-2.5 py-0.5 text-xs font-semibold', // No change
+        sm: 'rounded-full px-1.5 py-0.5 text-xs', // No change
+        md: 'rounded-lg px-2 py-1 text-xs font-medium', // Updated rounding
+        lg: 'rounded-lg px-2.5 py-1.5 text-sm', // Updated rounding
       },
     },
     defaultVariants: {

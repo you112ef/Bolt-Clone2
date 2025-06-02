@@ -14,7 +14,8 @@ const FrameworkLink: React.FC<FrameworkLinkProps> = ({ template }) => (
     className="items-center justify-center"
   >
     <div
-      className={`inline-block ${template.icon} w-8 h-8 text-4xl transition-theme opacity-25 hover:opacity-100 hover:text-purple-500 dark:text-white dark:opacity-50 dark:hover:opacity-100 dark:hover:text-purple-400 transition-all`}
+      // Updated colors: hover:text-primary. Dark mode handled by text-text and primary color variables.
+      className={`inline-block ${template.icon} w-8 h-8 text-4xl text-text/40 hover:text-primary transition-all dark:text-text/50 dark:hover:text-primary`}
       title={template.label}
     />
   </a>
@@ -23,7 +24,7 @@ const FrameworkLink: React.FC<FrameworkLinkProps> = ({ template }) => (
 const StarterTemplates: React.FC = () => {
   return (
     <div className="flex flex-col items-center gap-4">
-      <span className="text-sm text-gray-500">or start a blank app with your favorite stack</span>
+      <span className="text-sm text-text/60">or start a blank app with your favorite stack</span> {/* Updated text color */}
       <div className="flex justify-center">
         <div className="flex flex-wrap justify-center items-center gap-4 max-w-sm">
           {STARTER_TEMPLATES.map((template) => (

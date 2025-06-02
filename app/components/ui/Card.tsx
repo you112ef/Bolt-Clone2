@@ -8,7 +8,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ className, ...props }, ref
     <div
       ref={ref}
       className={classNames(
-        'rounded-lg border border-bolt-elements-borderColor bg-bolt-elements-background-depth-1 text-bolt-elements-textPrimary shadow-sm',
+        'rounded-2xl border border-border bg-background text-text shadow-md hover:shadow-lg transition-shadow',
         className,
       )}
       {...props}
@@ -27,7 +27,7 @@ const CardTitle = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHead
     return (
       <h3
         ref={ref}
-        className={classNames('text-2xl font-semibold leading-none tracking-tight', className)}
+        className={classNames('text-2xl font-semibold leading-none tracking-tight text-text', className)} // Ensure CardTitle also uses the new text color
         {...props}
       />
     );
@@ -37,7 +37,7 @@ CardTitle.displayName = 'CardTitle';
 
 const CardDescription = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => {
-    return <p ref={ref} className={classNames('text-sm text-bolt-elements-textSecondary', className)} {...props} />;
+    return <p ref={ref} className={classNames('text-sm text-text/75', className)} {...props} />; // Using text-text with opacity for secondary text
   },
 );
 CardDescription.displayName = 'CardDescription';

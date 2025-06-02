@@ -9,7 +9,7 @@ $code-font-size: 13px;
 
 .MarkdownContent {
   line-height: 1.6;
-  color: var(--bolt-elements-textPrimary);
+  color: var(--color-text); /* Updated */
 
   > *:not(:last-child) {
     margin-block-end: 16px;
@@ -25,19 +25,19 @@ $code-font-size: 13px;
       margin-block-end: 16px;
       font-weight: 600;
       line-height: 1.25;
-      color: var(--bolt-elements-textPrimary);
+      color: var(--color-text); /* Updated */
     }
   }
 
   h1 {
     font-size: 2em;
-    border-bottom: 1px solid var(--bolt-elements-borderColor);
+    border-bottom: 1px solid var(--color-border); /* Updated */
     padding-bottom: 0.3em;
   }
 
   h2 {
     font-size: 1.5em;
-    border-bottom: 1px solid var(--bolt-elements-borderColor);
+    border-bottom: 1px solid var(--color-border); /* Updated */
     padding-bottom: 0.3em;
   }
 
@@ -55,7 +55,7 @@ $code-font-size: 13px;
 
   h6 {
     font-size: 0.85em;
-    color: #6a737d;
+    color: var(--color-text-secondary, #{$color-text-rgb}/0.75); /* Updated, with fallback concept */
   }
 
   p {
@@ -68,7 +68,7 @@ $code-font-size: 13px;
   }
 
   a {
-    color: var(--bolt-elements-messages-linkColor);
+    color: var(--color-primary); /* Updated */
     text-decoration: none;
     cursor: pointer;
 
@@ -84,8 +84,8 @@ $code-font-size: 13px;
     @include not-inside-actions {
       border-radius: 6px;
       padding: 0.2em 0.4em;
-      background-color: var(--bolt-elements-messages-inlineCode-background);
-      color: var(--bolt-elements-messages-inlineCode-text);
+      background-color: rgba(var(--color-text-rgb-raw, 0,0,0), 0.05); /* Updated - subtle bg based on text color */
+      color: var(--color-text); /* Updated */
     }
   }
 
@@ -105,8 +105,8 @@ $code-font-size: 13px;
   blockquote {
     margin: 0;
     padding: 0 1em;
-    color: var(--bolt-elements-textTertiary);
-    border-left: 0.25em solid var(--bolt-elements-borderColor);
+    color: var(--color-text-secondary, #{$color-text-rgb}/0.60); /* Updated */
+    border-left: 0.25em solid var(--color-border); /* Updated */
   }
 
   :is(ul, ol) {
@@ -150,7 +150,7 @@ $code-font-size: 13px;
     height: 0.25em;
     padding: 0;
     margin: 24px 0;
-    background-color: var(--bolt-elements-borderColor);
+    background-color: var(--color-border); /* Updated */
     border: 0;
   }
 
@@ -161,11 +161,11 @@ $code-font-size: 13px;
 
     :is(th, td) {
       padding: 6px 13px;
-      border: 1px solid #dfe2e5;
+      border: 1px solid var(--color-border); /* Updated */
     }
 
     tr:nth-child(2n) {
-      background-color: #f6f8fa;
+      background-color: rgba(var(--color-text-rgb-raw, 0,0,0), 0.03); /* Updated - very subtle striped bg */
     }
   }
 }

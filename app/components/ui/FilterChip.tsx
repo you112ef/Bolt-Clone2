@@ -43,11 +43,11 @@ export function FilterChip({ label, value, onRemove, active = false, icon, class
       variants={variants}
       transition={{ duration: 0.2 }}
       className={classNames(
-        'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all',
+        'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all', // Base styles are good
         active
-          ? 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30'
-          : 'bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-3 text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark',
-        onRemove && 'pr-1',
+          ? 'bg-primary/15 text-primary border border-primary/30 hover:bg-primary/20' // Updated active state with hover
+          : 'bg-background/75 text-text/75 border border-border hover:bg-background hover:border-border-active', // Updated inactive state with hover (border-border-active is conceptual)
+        onRemove && 'pr-1', // Keep padding adjustment if remove button is present
         className,
       )}
     >
@@ -62,8 +62,8 @@ export function FilterChip({ label, value, onRemove, active = false, icon, class
           <span
             className={
               active
-                ? 'text-purple-700 dark:text-purple-300 font-semibold'
-                : 'text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary-dark'
+                ? 'text-primary font-semibold' // Updated active value color (using primary, could be darker shade if available)
+                : 'text-text font-semibold' // Updated inactive value color
             }
           >
             {value}
@@ -77,10 +77,10 @@ export function FilterChip({ label, value, onRemove, active = false, icon, class
           type="button"
           onClick={onRemove}
           className={classNames(
-            'ml-1 p-0.5 rounded-full hover:bg-bolt-elements-background-depth-3 dark:hover:bg-bolt-elements-background-depth-4 transition-colors',
+            'ml-1 p-0.5 rounded-full hover:bg-background-active transition-colors', // Updated hover background (bg-background-active is conceptual)
             active
-              ? 'text-purple-600 dark:text-purple-400'
-              : 'text-bolt-elements-textTertiary dark:text-bolt-elements-textTertiary-dark',
+              ? 'text-primary hover:text-primary-dark' // Updated active remove icon color
+              : 'text-text/60 hover:text-text/80', // Updated inactive remove icon color
           )}
           aria-label={`Remove ${label} filter`}
         >

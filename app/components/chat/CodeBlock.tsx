@@ -65,7 +65,7 @@ export const CodeBlock = memo(
           {!disableCopy && (
             <button
               className={classNames(
-                'flex items-center bg-accent-500 p-[6px] justify-center before:bg-white before:rounded-l-md before:text-gray-500 before:border-r before:border-gray-300 rounded-md transition-theme',
+                'flex items-center bg-primary text-white p-[6px] justify-center before:bg-background before:rounded-l-md before:text-text/75 before:border-r before:border-border rounded-md transition-colors', // Updated colors
                 {
                   'before:opacity-0': !copied,
                   'before:opacity-100': copied,
@@ -74,7 +74,7 @@ export const CodeBlock = memo(
               title="Copy Code"
               onClick={() => copyToClipboard()}
             >
-              <div className="i-ph:clipboard-text-duotone"></div>
+              <div className="i-ph:clipboard-text-duotone"></div> {/* Icon color will be white due to text-white on button */}
             </button>
           )}
         </div>

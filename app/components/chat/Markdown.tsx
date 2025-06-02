@@ -99,7 +99,7 @@ export const Markdown = memo(
 
             return (
               <button
-                className="rounded-md justify-center px-3 py-1.5 text-xs bg-bolt-elements-item-backgroundAccent text-bolt-elements-item-contentAccent opacity-90 hover:opacity-100 flex items-center gap-2 cursor-pointer"
+                className="rounded-lg justify-center px-3 py-1.5 text-xs bg-primary/10 text-primary opacity-90 hover:opacity-100 flex items-center gap-2 cursor-pointer transition-opacity" // Updated styles: rounded-lg, primary colors, transition-opacity
                 data-type={type}
                 data-message={message}
                 data-path={path}

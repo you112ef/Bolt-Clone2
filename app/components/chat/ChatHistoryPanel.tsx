@@ -53,7 +53,7 @@ function CurrentDateTime() {
   }, []);
 
   return (
-    <div className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 border-b border-gray-100 dark:border-gray-800/50">
+    <div className="flex items-center gap-2 px-4 py-2 text-sm text-text/75 border-b border-border"> {/* Updated colors */}
       <div className="h-4 w-4 i-ph:clock opacity-80" />
       <div className="flex gap-2">
         <span>{dateTime.toLocaleDateString()}</span>
@@ -63,7 +63,7 @@ function CurrentDateTime() {
   );
 }
 
-export const Menu = () => {
+export const ChatHistoryPanel = () => { // Renamed component
   const { duplicateCurrentChat, exportChat } = useChatHistory();
   const menuRef = useRef<HTMLDivElement>(null);
   const [list, setList] = useState<ChatHistoryItem[]>([]);
@@ -332,18 +332,19 @@ export const Menu = () => {
         style={{ width: '340px' }}
         className={classNames(
           'flex selection-accent flex-col side-menu fixed top-0 h-full',
-          'bg-white dark:bg-gray-950 border-r border-gray-100 dark:border-gray-800/50',
+          'bg-background border-r border-border', // Updated main panel bg and border
           'shadow-sm text-sm',
-          isSettingsOpen ? 'z-40' : 'z-sidebar',
+          isSettingsOpen ? 'z-40' : 'z-sidebar', // z-index logic seems fine
         )}
       >
-        <div className="h-12 flex items-center justify-between px-4 border-b border-gray-100 dark:border-gray-800/50 bg-gray-50/50 dark:bg-gray-900/50">
-          <div className="text-gray-900 dark:text-white font-medium"></div>
+        {/* Header section */}
+        <div className="h-12 flex items-center justify-between px-4 border-b border-border bg-background/50"> {/* Updated colors */}
+          <div className="text-text font-medium"></div> {/* Ensured text-text for any potential text here */}
           <div className="flex items-center gap-3">
-            <span className="font-medium text-sm text-gray-900 dark:text-white truncate">
+            <span className="font-medium text-sm text-text truncate"> {/* Updated text color */}
               {profile?.username || 'Guest User'}
             </span>
-            <div className="flex items-center justify-center w-[32px] h-[32px] overflow-hidden bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-500 rounded-full shrink-0">
+            <div className="flex items-center justify-center w-[32px] h-[32px] overflow-hidden bg-background text-text/75 rounded-full shrink-0"> {/* Updated avatar bg and icon color */}
               {profile?.avatar ? (
                 <img
                   src={profile.avatar}
@@ -362,32 +363,35 @@ export const Menu = () => {
         <div className="flex-1 flex flex-col h-full w-full overflow-hidden">
           <div className="p-4 space-y-3">
             <div className="flex gap-2">
+              {/* "Start new chat" button */}
               <a
                 href="/"
-                className="flex-1 flex gap-2 items-center bg-purple-50 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-500/20 rounded-lg px-4 py-2 transition-colors"
+                className="flex-1 flex gap-2 items-center bg-primary/10 text-primary hover:bg-primary/20 rounded-lg px-4 py-2 transition-colors" // Updated to primary color scheme
               >
                 <span className="inline-block i-ph:plus-circle h-4 w-4" />
                 <span className="text-sm font-medium">Start new chat</span>
               </a>
+              {/* Selection mode toggle button */}
               <button
                 onClick={toggleSelectionMode}
                 className={classNames(
-                  'flex gap-1 items-center rounded-lg px-3 py-2 transition-colors',
+                  'flex gap-1 items-center rounded-lg px-3 py-2 transition-colors border', // Added base border
                   selectionMode
-                    ? 'bg-purple-600 dark:bg-purple-500 text-white border border-purple-700 dark:border-purple-600'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700',
+                    ? 'bg-primary text-white border-primary' // Updated active selection style
+                    : 'bg-background/75 text-text hover:bg-background border-border', // Updated inactive selection style
                 )}
                 aria-label={selectionMode ? 'Exit selection mode' : 'Enter selection mode'}
               >
                 <span className={selectionMode ? 'i-ph:x h-4 w-4' : 'i-ph:check-square h-4 w-4'} />
               </button>
             </div>
+            {/* Search input */}
             <div className="relative w-full">
               <div className="absolute left-3 top-1/2 -translate-y-1/2">
-                <span className="i-ph:magnifying-glass h-4 w-4 text-gray-400 dark:text-gray-500" />
+                <span className="i-ph:magnifying-glass h-4 w-4 text-text/50" /> {/* Updated icon color */}
               </div>
               <input
-                className="w-full bg-gray-50 dark:bg-gray-900 relative pl-9 pr-3 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-purple-500/50 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-500 border border-gray-200 dark:border-gray-800"
+                className="w-full bg-background/50 relative pl-9 pr-3 py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary/50 text-sm text-text placeholder:text-text/50 border border-border" // Updated colors
                 type="search"
                 placeholder="Search chats..."
                 onChange={handleSearchChange}
@@ -395,10 +399,12 @@ export const Menu = () => {
               />
             </div>
           </div>
+          {/* "Your Chats" header */}
           <div className="flex items-center justify-between text-sm px-4 py-2">
-            <div className="font-medium text-gray-600 dark:text-gray-400">Your Chats</div>
+            <div className="font-medium text-text/75">Your Chats</div> {/* Updated text color */}
             {selectionMode && (
               <div className="flex items-center gap-2">
+                {/* Buttons here use the main Button component, already restyled */}
                 <Button variant="ghost" size="sm" onClick={selectAll}>
                   {selectedItems.length === filteredList.length ? 'Deselect all' : 'Select all'}
                 </Button>
@@ -415,14 +421,14 @@ export const Menu = () => {
           </div>
           <div className="flex-1 overflow-auto px-3 pb-3">
             {filteredList.length === 0 && (
-              <div className="px-4 text-gray-500 dark:text-gray-400 text-sm">
+              <div className="px-4 text-text/60 text-sm"> {/* Updated text color */}
                 {list.length === 0 ? 'No previous conversations' : 'No matches found'}
               </div>
             )}
-            <DialogRoot open={dialogContent !== null}>
+            <DialogRoot open={dialogContent !== null}> {/* Dialog components are already restyled */}
               {binDates(filteredList).map(({ category, items }) => (
                 <div key={category} className="mt-2 first:mt-0 space-y-1">
-                  <div className="text-xs font-medium text-gray-500 dark:text-gray-400 sticky top-0 z-1 bg-white dark:bg-gray-950 px-4 py-1">
+                  <div className="text-xs font-medium text-text/60 sticky top-0 z-1 bg-background px-4 py-1"> {/* Updated colors */}
                     {category}
                   </div>
                   <div className="space-y-0.5 pr-1">
@@ -449,19 +455,19 @@ export const Menu = () => {
               <Dialog onBackdrop={closeDialog} onClose={closeDialog}>
                 {dialogContent?.type === 'delete' && (
                   <>
-                    <div className="p-6 bg-white dark:bg-gray-950">
-                      <DialogTitle className="text-gray-900 dark:text-white">Delete Chat?</DialogTitle>
-                      <DialogDescription className="mt-2 text-gray-600 dark:text-gray-400">
+                    <div className="p-6 bg-background"> {/* Updated bg */}
+                      <DialogTitle className="text-text">Delete Chat?</DialogTitle> {/* Updated text */}
+                      <DialogDescription className="mt-2 text-text/75"> {/* Updated text */}
                         <p>
                           You are about to delete{' '}
-                          <span className="font-medium text-gray-900 dark:text-white">
+                          <span className="font-medium text-text"> {/* Updated text */}
                             {dialogContent.item.description}
                           </span>
                         </p>
                         <p className="mt-2">Are you sure you want to delete this chat?</p>
                       </DialogDescription>
                     </div>
-                    <div className="flex justify-end gap-3 px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+                    <div className="flex justify-end gap-3 px-6 py-4 bg-background/50 border-t border-border"> {/* Updated colors */}
                       <DialogButton type="secondary" onClick={closeDialog}>
                         Cancel
                       </DialogButton>
@@ -480,18 +486,18 @@ export const Menu = () => {
                 )}
                 {dialogContent?.type === 'bulkDelete' && (
                   <>
-                    <div className="p-6 bg-white dark:bg-gray-950">
-                      <DialogTitle className="text-gray-900 dark:text-white">Delete Selected Chats?</DialogTitle>
-                      <DialogDescription className="mt-2 text-gray-600 dark:text-gray-400">
+                    <div className="p-6 bg-background"> {/* Updated bg */}
+                      <DialogTitle className="text-text">Delete Selected Chats?</DialogTitle> {/* Updated text */}
+                      <DialogDescription className="mt-2 text-text/75"> {/* Updated text */}
                         <p>
                           You are about to delete {dialogContent.items.length}{' '}
                           {dialogContent.items.length === 1 ? 'chat' : 'chats'}:
                         </p>
-                        <div className="mt-2 max-h-32 overflow-auto border border-gray-100 dark:border-gray-800 rounded-md bg-gray-50 dark:bg-gray-900 p-2">
+                        <div className="mt-2 max-h-32 overflow-auto border border-border rounded-md bg-background/50 p-2"> {/* Updated colors */}
                           <ul className="list-disc pl-5 space-y-1">
                             {dialogContent.items.map((item) => (
                               <li key={item.id} className="text-sm">
-                                <span className="font-medium text-gray-900 dark:text-white">{item.description}</span>
+                                <span className="font-medium text-text">{item.description}</span> {/* Updated text */}
                               </li>
                             ))}
                           </ul>
@@ -499,7 +505,7 @@ export const Menu = () => {
                         <p className="mt-3">Are you sure you want to delete these chats?</p>
                       </DialogDescription>
                     </div>
-                    <div className="flex justify-end gap-3 px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
+                    <div className="flex justify-end gap-3 px-6 py-4 bg-background/50 border-t border-border"> {/* Updated colors */}
                       <DialogButton type="secondary" onClick={closeDialog}>
                         Cancel
                       </DialogButton>
@@ -524,7 +530,8 @@ export const Menu = () => {
               </Dialog>
             </DialogRoot>
           </div>
-          <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-800 px-4 py-3">
+          {/* Footer: SettingsButton and ThemeSwitch are already styled components */}
+          <div className="flex items-center justify-between border-t border-border px-4 py-3"> {/* Updated border color */}
             <SettingsButton onClick={handleSettingsClick} />
             <ThemeSwitch />
           </div>

@@ -60,13 +60,8 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
   return (
     <div
       className={classNames(
-        'relative bg-bolt-elements-background-depth-2 p-3 rounded-lg border border-bolt-elements-borderColor relative w-full max-w-chat mx-auto z-prompt',
-
-        /*
-         * {
-         *   'sticky bottom-2': chatStarted,
-         * },
-         */
+        'relative bg-background p-3 rounded-lg border border-border relative w-full max-w-chat mx-auto z-prompt', // Updated bg and border
+        // Removed sticky logic for now, can be re-added if layout demands it
       )}
     >
       <svg className={classNames(styles.PromptEffectContainer)}>
@@ -80,13 +75,13 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
             gradientUnits="userSpaceOnUse"
             gradientTransform="rotate(-45)"
           >
-            <stop offset="0%" stopColor="#b44aff" stopOpacity="0%"></stop>
-            <stop offset="40%" stopColor="#b44aff" stopOpacity="80%"></stop>
-            <stop offset="50%" stopColor="#b44aff" stopOpacity="80%"></stop>
-            <stop offset="100%" stopColor="#b44aff" stopOpacity="0%"></stop>
+            <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0%"></stop> {/* Updated color */}
+            <stop offset="40%" stopColor="var(--color-primary)" stopOpacity="80%"></stop> {/* Updated color */}
+            <stop offset="50%" stopColor="var(--color-primary)" stopOpacity="80%"></stop> {/* Updated color */}
+            <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0%"></stop> {/* Updated color */}
           </linearGradient>
           <linearGradient id="shine-gradient">
-            <stop offset="0%" stopColor="white" stopOpacity="0%"></stop>
+            <stop offset="0%" stopColor="white" stopOpacity="0%"></stop> 
             <stop offset="40%" stopColor="#ffffff" stopOpacity="80%"></stop>
             <stop offset="50%" stopColor="#ffffff" stopOpacity="80%"></stop>
             <stop offset="100%" stopColor="white" stopOpacity="0%"></stop>
@@ -144,30 +139,30 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
         )}
       </ClientOnly>
       <div
-        className={classNames('relative shadow-xs border border-bolt-elements-borderColor backdrop-blur rounded-lg')}
+        className={classNames('relative shadow-xs border border-border backdrop-blur rounded-lg')} // Updated border
       >
         <textarea
           ref={props.textareaRef}
           className={classNames(
-            'w-full pl-4 pt-4 pr-16 outline-none resize-none text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary bg-transparent text-sm',
+            'w-full pl-4 pt-4 pr-16 outline-none resize-none text-text placeholder:text-text/60 bg-transparent text-sm', // Updated text and placeholder colors
             'transition-all duration-200',
-            'hover:border-bolt-elements-focus',
+            'hover:border-primary', // Updated hover border color
           )}
           onDragEnter={(e) => {
             e.preventDefault();
-            e.currentTarget.style.border = '2px solid #1488fc';
+            e.currentTarget.style.border = '2px solid var(--color-primary)'; // Updated color
           }}
           onDragOver={(e) => {
             e.preventDefault();
-            e.currentTarget.style.border = '2px solid #1488fc';
+            e.currentTarget.style.border = '2px solid var(--color-primary)'; // Updated color
           }}
           onDragLeave={(e) => {
             e.preventDefault();
-            e.currentTarget.style.border = '1px solid var(--bolt-elements-borderColor)';
+            e.currentTarget.style.border = '1px solid var(--color-border)'; // Updated color
           }}
           onDrop={(e) => {
             e.preventDefault();
-            e.currentTarget.style.border = '1px solid var(--bolt-elements-borderColor)';
+            e.currentTarget.style.border = '1px solid var(--color-border)'; // Updated color
 
             const files = Array.from(e.dataTransfer.files);
             files.forEach((file) => {
@@ -266,10 +261,10 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
               <IconButton
                 title="Discuss"
                 className={classNames(
-                  'transition-all flex items-center gap-1 px-1.5',
+                  'transition-all flex items-center gap-1 px-1.5 rounded-md', // Added rounded-md for consistency with other IconButtons
                   props.chatMode === 'discuss'
-                    ? '!bg-bolt-elements-item-backgroundAccent !text-bolt-elements-item-contentAccent'
-                    : 'bg-bolt-elements-item-backgroundDefault text-bolt-elements-item-contentDefault',
+                    ? 'bg-primary text-white' // Updated active style
+                    : 'bg-background-hover text-text hover:bg-primary/10 hover:text-primary', // Updated inactive style
                 )}
                 onClick={() => {
                   props.setChatMode?.(props.chatMode === 'discuss' ? 'build' : 'discuss');
@@ -282,23 +277,23 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
             {props.chatStarted && <ClientOnly>{() => <ExportChatButton exportChat={props.exportChat} />}</ClientOnly>}
             <IconButton
               title="Model Settings"
-              className={classNames('transition-all flex items-center gap-1', {
-                'bg-bolt-elements-item-backgroundAccent text-bolt-elements-item-contentAccent':
-                  props.isModelSettingsCollapsed,
-                'bg-bolt-elements-item-backgroundDefault text-bolt-elements-item-contentDefault':
-                  !props.isModelSettingsCollapsed,
-              })}
-              onClick={() => props.setIsModelSettingsCollapsed(!props.isModelSettingsCollapsed)}
-              disabled={!props.providerList || props.providerList.length === 0}
+                className={classNames(
+                  'transition-all flex items-center gap-1 px-1.5 rounded-md', // Added rounded-md
+                  props.isModelSettingsCollapsed
+                    ? 'bg-primary/10 text-primary' // Updated "active" (when settings are hidden, button shows model)
+                    : 'bg-transparent text-text/75 hover:bg-background-hover hover:text-text', // Updated "inactive" (when settings are shown)
+                )}
+                onClick={() => props.setIsModelSettingsCollapsed(!props.isModelSettingsCollapsed)}
+                disabled={!props.providerList || props.providerList.length === 0}
             >
               <div className={`i-ph:caret-${props.isModelSettingsCollapsed ? 'right' : 'down'} text-lg`} />
               {props.isModelSettingsCollapsed ? <span className="text-xs">{props.model}</span> : <span />}
             </IconButton>
           </div>
           {props.input.length > 3 ? (
-            <div className="text-xs text-bolt-elements-textTertiary">
-              Use <kbd className="kdb px-1.5 py-0.5 rounded bg-bolt-elements-background-depth-2">Shift</kbd> +{' '}
-              <kbd className="kdb px-1.5 py-0.5 rounded bg-bolt-elements-background-depth-2">Return</kbd> a new line
+            <div className="text-xs text-text/60"> {/* Updated text color */}
+              Use <kbd className="kdb px-1.5 py-0.5 rounded bg-background-hover text-text">Shift</kbd> +{' '} {/* Updated kbd style */}
+              <kbd className="kdb px-1.5 py-0.5 rounded bg-background-hover text-text">Return</kbd> for a new line {/* Updated kbd style */}
             </div>
           ) : null}
           <SupabaseConnection />

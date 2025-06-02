@@ -1,6 +1,13 @@
 /* Color Tokens Light Theme */
 :root,
 :root[data-theme='light'] {
+  --color-primary: #4F46E5;
+  --color-secondary: #10B981;
+  --color-accent: #FACC15;
+  --color-background: #F9FAFB;
+  --color-text: #111827;
+  --color-border: #E5E7EB;
+
   --bolt-elements-borderColor: theme('colors.alpha.gray.10');
   --bolt-elements-borderColorActive: theme('colors.accent.600');
 
@@ -109,6 +116,13 @@
 /* Color Tokens Dark Theme */
 :root,
 :root[data-theme='dark'] {
+  --color-primary: #4F46E5;
+  --color-secondary: #10B981;
+  --color-accent: #FACC15;
+  --color-background: #F9FAFB;
+  --color-text: #111827;
+  --color-border: #E5E7EB;
+
   --bolt-elements-borderColor: theme('colors.alpha.white.10');
   --bolt-elements-borderColorActive: theme('colors.accent.500');
 
@@ -220,6 +234,7 @@
  * Hierarchy: Element Token -> (Element Token | Color Tokens) -> Primitives
  */
 :root {
+  --base-spacing-unit: 8px;
   --header-height: 54px;
   --chat-max-width: 35rem;
   --chat-min-width: 575px;
