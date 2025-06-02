@@ -235,8 +235,8 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
             />
           )}
         </ClientOnly>
-        <div className="flex justify-between items-center flex-wrap text-sm p-4 pt-2">
-          <div className="flex gap-1 items-center">
+        <div className="flex justify-between items-center flex-wrap text-sm p-2 sm:p-3 sm:pt-2">
+          <div className="flex gap-0.5 sm:gap-1 items-center">
             <IconButton title="Upload file" className="transition-all" onClick={() => props.handleFileUpload()}>
               <div className="i-ph:paperclip text-xl"></div>
             </IconButton>
