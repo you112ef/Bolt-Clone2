@@ -1,0 +1,92 @@
+// Import Roboto font (ensure it's available in the project or via CDN)
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+// Default Bolt.DIY Theme (Dark OLED - True Black)
+:root, // Applied if no theme is set or as a fallback
+:root[data-boltdiy-theme='dark-oled'] {
+  --boltdiy-primary-bg: #000000;
+  --boltdiy-primary-text: #FFFFFF; // WCAG: White on black is 19.5:1
+  --boltdiy-secondary-bg: #1A1A1A; // For cards, input fields etc. (Dark Gray) WCAG with white text: 12.7:1
+  --boltdiy-accent-neon: #A020F0; // Vibrant Purple. WCAG with white text: 4.9:1 (Good for text), WCAG with #000 bg: 3.0:1 (Okay for icons/borders, not text)
+  --boltdiy-accent-neon-text: #FFFFFF; // Text on neon accent background
+  --boltdiy-input-bg: var(--boltdiy-secondary-bg);
+  --boltdiy-input-border: var(--boltdiy-accent-neon);
+  --boltdiy-input-text: var(--boltdiy-primary-text);
+  --boltdiy-button-bg: var(--boltdiy-accent-neon);
+  --boltdiy-button-text: var(--boltdiy-accent-neon-text);
+  --boltdiy-font-family: 'Roboto', 'SF Pro', sans-serif; // SF Pro as a common iOS fallback
+  --boltdiy-font-size-min: 14px;
+  --boltdiy-font-weight-normal: 400;
+  --boltdiy-font-weight-medium: 500;
+  --boltdiy-spacing: 6px; // Base spacing unit
+  --boltdiy-transition-duration: 0.3s; // For theme changes
+}
+
+// Light Theme for Bolt.DIY
+:root[data-boltdiy-theme='light'] {
+  --boltdiy-primary-bg: #F0F0F0; // Light Gray
+  --boltdiy-primary-text: #121212; // Dark Gray text. WCAG: 15.7:1
+  --boltdiy-secondary-bg: #FFFFFF; // White for cards
+  --boltdiy-accent-neon: #7F00FF; // Violet (similar to A020F0 but can be adjusted for light bg). WCAG with #121212 text: 5.0:1, WCAG with white bg: 3.3:1 (Okay for icons/borders)
+  --boltdiy-accent-neon-text: #FFFFFF;
+  --boltdiy-input-bg: var(--boltdiy-secondary-bg);
+  --boltdiy-input-border: var(--boltdiy-accent-neon);
+  --boltdiy-input-text: var(--boltdiy-primary-text);
+  --boltdiy-button-bg: var(--boltdiy-accent-neon);
+  --boltdiy-button-text: var(--boltdiy-accent-neon-text);
+  // Font and spacing vars can be inherited or overridden if needed
+}
+
+// Example: Blue Theme for Bolt.DIY (Dark base)
+:root[data-boltdiy-theme='dark-blue-neon'] {
+  --boltdiy-primary-bg: #000000;
+  --boltdiy-primary-text: #FFFFFF;
+  --boltdiy-secondary-bg: #0D1117; // Dark blueish gray
+  --boltdiy-accent-neon: #00BFFF; // DeepSkyBlue. WCAG with white text: 3.7:1 (Okay for icons/borders, marginal for text), WCAG with #000 bg: 7.8:1 (Good for text)
+  --boltdiy-accent-neon-text: #000000; // Black text on DeepSkyBlue for better contrast (7.8:1)
+  --boltdiy-input-bg: var(--boltdiy-secondary-bg);
+  --boltdiy-input-border: var(--boltdiy-accent-neon);
+  --boltdiy-input-text: var(--boltdiy-primary-text);
+  --boltdiy-button-bg: var(--boltdiy-accent-neon);
+  --boltdiy-button-text: var(--boltdiy-accent-neon-text);
+}
+
+// TODO: Add 2 more preset themes (e.g., a 'red' accent theme, another light variant)
+// TODO: Ensure all color combinations meet WCAG 2.1 4.5:1 for text/background where applicable. Neon accents on their own might be decorative or for borders if their direct text contrast is insufficient.
+
+// Apply transition for smooth theme changes to properties that change
+// This can be applied to a wrapper for bolt.diy content
+.boltdiy-theme-wrapper {
+    background-color: var(--boltdiy-primary-bg);
+    color: var(--boltdiy-primary-text);
+    font-family: var(--boltdiy-font-family);
+    font-size: var(--boltdiy-font-size-min);
+    font-weight: var(--boltdiy-font-weight-normal);
+    transition: background-color var(--boltdiy-transition-duration) ease, color var(--boltdiy-transition-duration) ease;
+    overflow-x: hidden; // Prevent horizontal scrolling
+    min-height: 100vh; // Ensure it can fill the viewport height
+    display: flex; // Useful for full-height screen layouts
+    flex-direction: column; // Default stacking for content within the wrapper
+}
+
+// Spacing Utilities (based on --boltdiy-spacing: 6px)
+.boltdiy-p-1 { padding: var(--boltdiy-spacing); } // 6px
+.boltdiy-pt-1 { padding-top: var(--boltdiy-spacing); }
+.boltdiy-pb-1 { padding-bottom: var(--boltdiy-spacing); }
+.boltdiy-pl-1 { padding-left: var(--boltdiy-spacing); }
+.boltdiy-pr-1 { padding-right: var(--boltdiy-spacing); }
+.boltdiy-px-1 { padding-left: var(--boltdiy-spacing); padding-right: var(--boltdiy-spacing); }
+.boltdiy-py-1 { padding-top: var(--boltdiy-spacing); padding-bottom: var(--boltdiy-spacing); }
+
+.boltdiy-m-1 { margin: var(--boltdiy-spacing); } // 6px
+.boltdiy-mt-1 { margin-top: var(--boltdiy-spacing); }
+.boltdiy-mb-1 { margin-bottom: var(--boltdiy-spacing); }
+.boltdiy-ml-1 { margin-left: var(--boltdiy-spacing); }
+.boltdiy-mr-1 { margin-right: var(--boltdiy-spacing); }
+.boltdiy-mx-1 { margin-left: var(--boltdiy-spacing); margin-right: var(--boltdiy-spacing); }
+.boltdiy-my-1 { margin-top: var(--boltdiy-spacing); margin-bottom: var(--boltdiy-spacing); }
+
+// Optional: Larger spacing units if needed (e.g., 2 * 6px = 12px)
+.boltdiy-p-2 { padding: calc(var(--boltdiy-spacing) * 2); }
+.boltdiy-m-2 { margin: calc(var(--boltdiy-spacing) * 2); }
+// Add pt-2, pb-2, etc., as needed

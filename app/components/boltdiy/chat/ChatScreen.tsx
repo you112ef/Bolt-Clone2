@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import styles from '~/styles/boltdiy.module.scss'; // Assuming SCSS modules are set up
-
-// Placeholder for a Lightning Bolt Icon
+import React, { useState, useEffect, useRef } from 'react';
+import { Input } from '~/components/boltdiy/ui/Input'; // Path to themed Input
+import { Button } from '~/components/boltdiy/ui/Button'; // Path to themed Button
+// Placeholder for a WebP Lightning Bolt Icon (20x20px)
+// In a real scenario, this would be an <img src="path/to/icon.webp" /> or an SVG component
 const LightningBoltIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path d="M6.96112 13.0389H13.0389L9.36112 22.6389L17.0389 10.9611H10.9611L14.6389 1.36111L6.96112 13.0389Z" />
   </svg>
 );
@@ -12,109 +13,134 @@ interface Message {
   id: string;
   text: string;
   sender: 'user' | 'ai';
+  timestamp: Date;
 }
 
 export function ChatScreen() {
   const [messages, setMessages] = useState<Message[]>([
-    { id: '1', text: 'Hello! How can I help you today?', sender: 'ai' },
-    { id: '2', text: 'What is bolt.diy?', sender: 'user' },
-    { id: '3', text: 'bolt.diy is a smart web app designed for DIY enthusiasts!', sender: 'ai' },
+    { id: '1', text: 'Welcome to Bolt.DIY AI Chat!', sender: 'ai', timestamp: new Date(Date.now() - 10000) },
   ]);
   const [inputText, setInputText] = useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(scrollToBottom, [messages]);
 
   const handleSend = () => {
     if (inputText.trim() === '') return;
-    const newMessage: Message = {
+    const userMessage: Message = {
       id: String(Date.now()),
       text: inputText,
       sender: 'user',
+      timestamp: new Date(),
     };
-    // Simulate AI response for now
+    // Simulate AI response
     const aiResponse: Message = {
       id: String(Date.now() + 1),
-      text: `You said: "${inputText}". I am a helpful AI.`,
+      text: `AI echoes: ${inputText}`,
       sender: 'ai',
+      timestamp: new Date(Date.now() + 1000),
     };
-    setMessages([...messages, newMessage, aiResponse]);
+    setMessages(prevMessages => [...prevMessages, userMessage, aiResponse]);
     setInputText('');
   };
 
+  const commonCardStyles: React.CSSProperties = {
+    padding: 'calc(var(--boltdiy-spacing) * 2)', // 12px
+    marginBottom: 'var(--boltdiy-spacing)', // 6px
+    borderRadius: '12px', // Rounded corners
+    maxWidth: '85%',
+    wordWrap: 'break-word',
+    fontSize: 'var(--boltdiy-font-size-min)', // 14px
+    lineHeight: '1.4',
+  };
+
+  const aiCardStyles: React.CSSProperties = {
+    ...commonCardStyles,
+    backgroundColor: 'var(--boltdiy-secondary-bg)',
+    color: 'var(--boltdiy-primary-text)',
+    alignSelf: 'flex-start',
+    marginRight: 'auto',
+  };
+
+  const userCardStyles: React.CSSProperties = {
+    ...commonCardStyles,
+    backgroundColor: 'var(--boltdiy-accent-neon)',
+    color: 'var(--boltdiy-accent-neon-text)', // Ensure contrast
+    alignSelf: 'flex-end',
+    marginLeft: 'auto',
+  };
+
+  // Wrapper for the entire Bolt.DIY screen content
+  // This would typically be part of a layout component that initializes useBoltDiyTheme
+  const screenWrapperStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh', // Full viewport height
+    width: '100%',
+    backgroundColor: 'var(--boltdiy-primary-bg)', // From theme
+    color: 'var(--boltdiy-primary-text)', // From theme
+    fontFamily: 'var(--boltdiy-font-family)',
+    overflow: 'hidden', // Prevents main container from scrolling, only message list scrolls
+  };
+
+
   return (
-    <div className={`${styles.boltdiyContainer}`} style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      {/* Header (Optional - not specified, keeping minimal for now) */}
-      {/* <header style={{ padding: '10px', textAlign: 'center', borderBottom: `1px solid ${styles.boltdiyNeonPurple}` }}>
-        <h1 className={styles.h1} style={{ margin: 0, fontSize: '20px' }}>bolt.diy Chat</h1>
+    <div style={screenWrapperStyle} className="boltdiy-theme-wrapper"> {/* Apply theme wrapper class here or higher up */}
+      {/* Optional Header - keeping minimal for mobile focus */}
+      {/* <header style={{ padding: 'var(--boltdiy-spacing)', textAlign: 'center', borderBottom: `1px solid var(--boltdiy-accent-neon)` }}>
+        <h1 style={{ margin: 0, fontSize: '18px', fontWeight: 'var(--boltdiy-font-weight-medium)' }}>Bolt.DIY Chat</h1>
       </header> */}
 
-      {/* Message Area */}
-      <div style={{ flexGrow: 1, overflowY: 'auto', padding: '16px' }}>
+      <div style={{ flexGrow: 1, overflowY: 'auto', padding: `calc(var(--boltdiy-spacing) * 2)` /* 12px */, display: 'flex', flexDirection: 'column' }}>
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`${styles.roundedCorners}`}
-            style={{
-              backgroundColor: msg.sender === 'ai' ? 'rgba(255,255,255,0.05)' : 'rgba(160, 32, 240, 0.2)', // AI slightly dimmer, user purple-tinted
-              padding: '12px',
-              marginBottom: '12px',
-              maxWidth: '80%',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-              marginLeft: msg.sender === 'user' ? 'auto' : '0',
-              marginRight: msg.sender === 'ai' ? 'auto' : '0',
-              textAlign: msg.sender === 'user' ? 'right' : 'left', // Align text based on sender
-            }}
+            style={msg.sender === 'ai' ? aiCardStyles : userCardStyles}
           >
-            <p style={{ margin: 0, color: styles.boltdiyText }}>{msg.text}</p>
+            <p style={{ margin: 0 }}>{msg.text}</p>
+            {/* Optional: Timestamp display, could be smaller */}
+            {/* <p style={{ margin: 'var(--boltdiy-spacing) 0 0 0', fontSize: '10px', opacity: 0.7, textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
+              {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </p> */}
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area */}
       <div
-        className={`${styles.glowingOutlineFocus}`} // Apply focus glow to the container
         style={{
           display: 'flex',
           alignItems: 'center',
-          padding: '10px',
-          borderTop: `1px solid var(--boltdiy-neon-purple)`, // Neon top border
-          backgroundColor: 'var(--boltdiy-bg)', // Ensure consistent bg
+          padding: `var(--boltdiy-spacing) calc(var(--boltdiy-spacing) * 2)`, // 6px vertical, 12px horizontal
+          borderTop: `1px solid var(--boltdiy-input-border)`, // Use input border color
+          backgroundColor: 'var(--boltdiy-primary-bg)', // Or secondary-bg if distinct area
         }}
+        // className="boltdiy-glowingOutlineFocus" // This could be added if the whole bar should glow
       >
-        <input
+        <Input
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Type your prompt…"
-          onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+          onKeyPress={(e) => { if (e.key === 'Enter') handleSend(); }}
+          className="flex-grow focus:shadow-[0_0_8px_2px_var(--boltdiy-accent-neon)]" // Ensure input itself has focus glow
           style={{
-            flexGrow: 1,
-            padding: '12px 15px',
-            backgroundColor: 'rgba(255,255,255,0.05)', // Slightly different from main bg
-            color: 'var(--boltdiy-text)',
-            border: '1px solid var(--boltdiy-neon-purple)', // Neon border for input itself
-            borderRadius: '20px', // Rounded input field
-            marginRight: '10px',
-            fontFamily: 'var(--boltdiy-font-family)',
-            fontSize: '16px',
-            outline: 'none', // Custom focus handled by parent
+            marginRight: 'var(--boltdiy-spacing)', // 6px
+            // The Input component itself should have its 40px height from its own styles
           }}
         />
-        <button
+        <Button
           onClick={handleSend}
-          className={`${styles.button} ${styles.iconButton} ${styles.glowingOutline}`}
           aria-label="Send prompt"
-          style={{
-            borderRadius: '50%', // Circular button
-            width: '48px',
-            height: '48px',
-            padding: '0', // Reset padding for icon button
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+          size="icon" // Uses the 40x40px icon size from Button (BoltDIY)
+          className="hover:shadow-[0_0_8px_2px_var(--boltdiy-accent-neon)]" // Custom hover glow for send button
         >
           <LightningBoltIcon />
-        </button>
+        </Button>
       </div>
     </div>
   );

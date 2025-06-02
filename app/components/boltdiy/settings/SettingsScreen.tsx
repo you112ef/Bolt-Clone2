@@ -1,166 +1,179 @@
 import React, { useState } from 'react';
-import styles from '~/styles/boltdiy.module.scss'; // Assuming SCSS modules are set up
+import { useBoltDiyTheme, BoltDiyTheme } from '~/lib/hooks/useBoltDiyTheme'; // Path to theme hook
+import { Button } from '~/components/boltdiy/ui/Button'; // Themed Button
+import { Switch } from '~/components/boltdiy/ui/Switch';   // Themed Switch
+import { Slider } from '~/components/boltdiy/ui/Slider';   // Themed Slider
+// Corrected import for Dropdown parts, assuming Dropdown exports its parts or we use Primitives
+import { Dropdown as DropdownRoot, DropdownItem, DropdownMenuPrimitives } from '~/components/boltdiy/ui/Dropdown'; // Themed Dropdown
 
-// Placeholder for Neon-Style Icons (simple divs for now)
-const NeonIconPlaceholder = ({ name, size = 24 }: { name: string, size?: number }) => (
+// Placeholder for a generic Neon Icon (20x20px)
+const SettingIcon = ({ char = '◆', size = 20 }: { char?: string, size?: number }) => (
   <div
-    aria-label={`${name} icon`}
-    className={styles.neonIcon} // Apply general neon color
     style={{
       width: size,
       height: size,
-      border: `2px solid var(--boltdiy-neon-purple)`, // Example visual
-      borderRadius: '50%',
-      marginRight: '16px',
+      color: 'var(--boltdiy-accent-neon)',
+      marginRight: 'calc(var(--boltdiy-spacing) * 2)', // 12px
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: `${size * 0.5}px`
+      fontSize: `${size * 0.8}px`, // Adjust char size within icon
+      border: '1px solid var(--boltdiy-accent-neon)', // Optional: if icon itself has a border
+      borderRadius: '4px',
     }}
+    aria-hidden="true"
   >
-    {name.substring(0,1).toUpperCase()} {/* Placeholder visual: first letter */}
+    {char}
   </div>
 );
 
-// Placeholder for a custom styled Toggle Switch
-const ToggleSwitch = ({ label, checked, onChange }: { label: string, checked: boolean, onChange: (checked: boolean) => void }) => (
-  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-    <span className={styles.label} style={{ marginBottom: 0 }}>{label}</span>
-    <button
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      className={`${styles.button} ${checked ? styles.glowingOutline : ''}`}
-      style={{
-        width: '60px',
-        height: '34px',
-        borderRadius: '17px',
-        position: 'relative',
-        padding: '2px', // to contain the inner circle
-        backgroundColor: checked ? 'var(--boltdiy-neon-purple)' : 'rgba(255,255,255,0.1)',
-      }}
-    >
-      <span style={{
-        display: 'block',
-        width: '28px',
-        height: '28px',
-        borderRadius: '50%',
-        backgroundColor: 'var(--boltdiy-text)',
-        position: 'absolute',
-        top: '3px',
-        left: checked ? '29px' : '3px',
-        transition: 'left 0.2s ease-in-out',
-      }}></span>
-    </button>
-  </div>
-);
-
-// Placeholder for a custom styled Slider
-const Slider = ({ label, value, onChange }: { label: string, value: number, onChange: (value: number) => void }) => (
-  <div style={{ marginBottom: '20px' }}>
-    <label className={styles.label} htmlFor={`${label}-slider`}>{label}: {value}</label>
-    <input
-      type="range"
-      id={`${label}-slider`}
-      min="0"
-      max="100"
-      value={value}
-      onChange={(e) => onChange(Number(e.target.value))}
-      style={{
-        width: '100%',
-        accentColor: 'var(--boltdiy-neon-purple)', // Styles the thumb and track in modern browsers
-        cursor: 'pointer',
-      }}
-    />
-  </div>
-);
-
-// Placeholder for a custom styled Dropdown
-const Dropdown = ({ label, options, selected, onChange }: { label:string, options: string[], selected: string, onChange: (value: string) => void }) => (
-  <div style={{ marginBottom: '20px' }}>
-    <label className={styles.label} htmlFor={`${label}-dropdown`}>{label}</label>
-    <select
-      id={`${label}-dropdown`}
-      value={selected}
-      onChange={(e) => onChange(e.target.value)}
-      className={`${styles.button} ${styles.glowingOutlineFocus}`} // Apply focus glow
-      style={{
-        width: '100%',
-        padding: '12px',
-        backgroundColor: 'rgba(255,255,255,0.05)',
-        color: 'var(--boltdiy-text)',
-        border: `1px solid var(--boltdiy-neon-purple)`,
-        borderRadius: '8px',
-        fontFamily: 'var(--boltdiy-font-family)',
-      }}
-    >
-      {options.map(opt => <option key={opt} value={opt} style={{ backgroundColor: 'var(--boltdiy-bg)', color: 'var(--boltdiy-text)' }}>{opt}</option>)}
-    </select>
+// Wrapper for each setting item for consistent spacing and layout
+const SettingItemWrapper: React.FC<{label: string, children: React.ReactNode, iconChar?: string}> = ({ label, children, iconChar }) => (
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column', // Stack label on top of control
+    marginBottom: 'calc(var(--boltdiy-spacing) * 3)', // 18px
+  }}>
+    <div style={{display: 'flex', alignItems: 'center', marginBottom: 'var(--boltdiy-spacing)' /* 6px */ }}>
+      {iconChar && <SettingIcon char={iconChar} />}
+      <label style={{
+        fontSize: 'var(--boltdiy-font-size-min)',
+        fontWeight: 'var(--boltdiy-font-weight-medium)',
+        color: 'var(--boltdiy-primary-text)',
+        flexGrow: 1,
+      }}>
+        {label}
+      </label>
+    </div>
+    {children}
   </div>
 );
 
 
 export function SettingsScreen() {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const [aiModel, setAiModel] = useState('BoltDIY-Turbo');
-  const [language, setLanguage] = useState('English');
-  const [storageOption, setStorageOption] = useState('LocalStorage');
-  const [sliderValue, setSliderValue] = useState(50); // Example slider
+  const { theme, setTheme, availableThemes } = useBoltDiyTheme();
 
-  const settingSections = [
-    {
-      title: 'Appearance',
-      icon: 'palette',
-      settings: [
-        { type: 'toggle', label: 'Dark Theme', checked: isDarkTheme, action: setIsDarkTheme },
-        // Add more appearance settings if needed
-      ]
-    },
-    {
-      title: 'AI Configuration',
-      icon: 'brain',
-      settings: [
-        { type: 'dropdown', label: 'AI Model', options: ['BoltDIY-Turbo', 'BoltDIY-Creative', 'BoltDIY-Precise'], selected: aiModel, action: setAiModel },
-        { type: 'slider', label: 'AI Temperature', value: sliderValue, action: setSliderValue }, // Example
-      ]
-    },
-    {
-      title: 'General',
-      icon: 'settings',
-      settings: [
-        { type: 'dropdown', label: 'Language', options: ['English', 'Spanish', 'Arabic (Placeholder)'], selected: language, action: setLanguage },
-        { type: 'dropdown', label: 'Storage', options: ['LocalStorage', 'Cloudflare KV', 'None'], selected: storageOption, action: setStorageOption },
-      ]
-    }
-  ];
+  // Example states for other settings
+  const [enableNotifications, setEnableNotifications] = useState(true);
+  const [aiModel, setAiModel] = useState('BoltDIY-Turbo');
+  const [language, setLanguage] = useState('English'); // Placeholder state
+  const [storageOption, setStorageOption] = useState('LocalStorage'); // Placeholder state
+  const [dataSyncFrequency, setDataSyncFrequency] = useState(60); // in minutes
+
+  const screenWrapperStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    width: '100%',
+    backgroundColor: 'var(--boltdiy-primary-bg)',
+    color: 'var(--boltdiy-primary-text)',
+    fontFamily: 'var(--boltdiy-font-family)',
+    overflowY: 'auto', // Allow vertical scrolling for settings list
+    padding: 'calc(var(--boltdiy-spacing) * 3)', // 18px padding for the screen
+  };
+
+  // Helper to format theme names for display
+  const formatThemeName = (themeName: string) => {
+    return themeName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  };
 
   return (
-    <div className={`${styles.boltdiyContainer}`} style={{ paddingTop: '20px' }}>
-      <h1 className={styles.h1} style={{ textAlign: 'center', marginBottom: '30px' }}>Settings</h1>
+    <div style={screenWrapperStyle} className="boltdiy-theme-wrapper">
+      <h1 style={{
+        fontSize: 'calc(var(--boltdiy-font-size-min) + 6px)', // ~20px
+        fontWeight: 'var(--boltdiy-font-weight-medium)',
+        textAlign: 'center',
+        color: 'var(--boltdiy-accent-neon)',
+        marginBottom: 'calc(var(--boltdiy-spacing) * 4)', // 24px
+      }}>
+        Settings
+      </h1>
 
-      {settingSections.map(section => (
-        <div key={section.title} className={`${styles.roundedCorners}`} style={{ backgroundColor: 'rgba(255,255,255,0.03)', padding: '20px', marginBottom: '25px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-            <NeonIconPlaceholder name={section.icon} />
-            <h2 className={styles.h1} style={{ fontSize: '20px', color: 'var(--boltdiy-neon-purple)', margin: 0 }}>{section.title}</h2>
-          </div>
+      {/* Theme Selection */}
+      <SettingItemWrapper label="Theme" iconChar="🎨">
+        <DropdownRoot>
+          <DropdownMenuPrimitives.Trigger asChild>
+            <Button
+              variant="default"
+              className="w-full justify-between focus:shadow-[0_0_8px_2px_var(--boltdiy-accent-neon)]"
+              style={{ minHeight: '40px', display: 'flex', justifyContent: 'space-between', textAlign: 'left', alignItems: 'center' }}
+            >
+              <span>{formatThemeName(availableThemes.find(t => t === theme) || theme)}</span>
+              <span aria-hidden="true">▼</span>
+            </Button>
+          </DropdownMenuPrimitives.Trigger>
+          <DropdownMenuPrimitives.Content> {/* Assuming Dropdown exports Content or use Primitives.Content */}
+            {availableThemes.map((themeOption) => (
+              <DropdownItem
+                key={themeOption}
+                onClick={() => setTheme(themeOption)}
+              >
+                {formatThemeName(themeOption)}
+                {theme === themeOption && <span style={{ marginLeft: 'auto', color: 'var(--boltdiy-accent-neon)'}} aria-hidden="true"> ✓</span>}
+              </DropdownItem>
+            ))}
+          </DropdownMenuPrimitives.Content>
+        </DropdownRoot>
+      </SettingItemWrapper>
 
-          {section.settings.map(setting => (
-            <div key={setting.label}>
-              {setting.type === 'toggle' && (
-                <ToggleSwitch label={setting.label} checked={(setting as any).checked} onChange={(setting as any).action} />
-              )}
-              {setting.type === 'dropdown' && (
-                <Dropdown label={setting.label} options={(setting as any).options} selected={(setting as any).selected} onChange={(setting as any).action} />
-              )}
-              {setting.type === 'slider' && (
-                <Slider label={setting.label} value={(setting as any).value} onChange={(setting as any).action} />
-              )}
-            </div>
-          ))}
+      {/* AI Model Selection */}
+      <SettingItemWrapper label="AI Model" iconChar="🧠">
+        <DropdownRoot>
+          <DropdownMenuPrimitives.Trigger asChild>
+            <Button variant="default" className="w-full justify-between focus:shadow-[0_0_8px_2px_var(--boltdiy-accent-neon)]" style={{ minHeight: '40px', display: 'flex', justifyContent: 'space-between', textAlign: 'left', alignItems: 'center' }}>
+              <span>{aiModel}</span>
+              <span aria-hidden="true">▼</span>
+            </Button>
+          </DropdownMenuPrimitives.Trigger>
+          <DropdownMenuPrimitives.Content>
+            {['BoltDIY-Turbo', 'BoltDIY-Creative', 'BoltDIY-PreciseV2'].map(model => (
+              <DropdownItem key={model} onClick={() => setAiModel(model)}>
+                {model}
+                {aiModel === model && <span style={{ marginLeft: 'auto', color: 'var(--boltdiy-accent-neon)'}} aria-hidden="true"> ✓</span>}
+              </DropdownItem>
+            ))}
+          </DropdownMenuPrimitives.Content>
+        </DropdownRoot>
+      </SettingItemWrapper>
+
+      {/* Language Selection (Placeholder Button) */}
+      <SettingItemWrapper label="Language" iconChar="🌐">
+         <Button variant="default" className="w-full focus:shadow-[0_0_8px_2px_var(--boltdiy-accent-neon)]" style={{ minHeight: '40px', justifyContent: 'flex-start' }}>
+          {language} (Placeholder)
+        </Button>
+      </SettingItemWrapper>
+
+      {/* Storage Options (Placeholder Button) */}
+       <SettingItemWrapper label="Storage Options" iconChar="💾">
+         <Button variant="default" className="w-full focus:shadow-[0_0_8px_2px_var(--boltdiy-accent-neon)]" style={{ minHeight: '40px', justifyContent: 'flex-start' }}>
+          {storageOption} (Placeholder)
+        </Button>
+      </SettingItemWrapper>
+
+      {/* Enable Notifications Toggle */}
+      <SettingItemWrapper label="Enable Notifications" iconChar="🔔">
+        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+          <Switch
+            checked={enableNotifications}
+            onCheckedChange={setEnableNotifications}
+            id="notifications-switch" // Important for accessibility if label is linked via htmlFor
+          />
         </div>
-      ))}
-      {/* TODO: Add a 'Save Settings' button if needed, or settings could apply instantly */}
+      </SettingItemWrapper>
+
+      {/* Data Sync Frequency Slider */}
+      <SettingItemWrapper label={`Data Sync Frequency: ${dataSyncFrequency} mins`} iconChar="⏱️">
+        <Slider
+          defaultValue={[dataSyncFrequency]}
+          max={120}
+          step={15}
+          onValueChange={(value) => setDataSyncFrequency(value[0])}
+          // className="w-full" // Ensure Slider component is styled to be full width if needed
+        />
+      </SettingItemWrapper>
+
+      {/* TODO: Add more settings as needed */}
+      {/* TODO: Consider a 'Save' button or if settings apply instantly */}
     </div>
   );
 }

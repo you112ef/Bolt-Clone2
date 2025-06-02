@@ -1,88 +1,120 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styles from '~/styles/boltdiy.module.scss';
+import React, { useState, useRef, useEffect } from 'react';
+import { Button } from '~/components/boltdiy/ui/Button'; // Themed Button
 
-// Placeholder for Icons (e.g., from a library or SVGs)
-const Icon = ({ name, size = 20 }: { name: string, size?: number }) => {
-  // In a real app, this would render an actual icon
-  const style = {
-    width: size,
-    height: size,
-    display: 'inline-block',
-    verticalAlign: 'middle',
-    marginRight: name === 'Back' ? '5px' : '0', // Specific margin for back button text
-    // backgroundColor: 'var(--boltdiy-neon-purple)', // Simple placeholder visual
-    // WebkitMask: `url(path/to/${name.toLowerCase()}.svg) no-repeat center`, // For SVG icons
-    // mask: `url(path/to/${name.toLowerCase()}.svg) no-repeat center`,
-    color: 'var(--boltdiy-neon-purple)', // For font icons or SVGs using currentColor
-  };
-  if (name === 'Back') return <span style={style}>&lt;</span>; // Simple back arrow
-  if (name === 'Save') return <span style={style}>💾</span>; // Floppy disk emoji
-  if (name === 'Run') return <span style={style}>▶️</span>; // Play button emoji
-  return <span style={style}>?</span>;
+// Placeholder for Icons (20x20px)
+const EditorIcon = ({ name, size = 18 }: { name: string, size?: number }) => {
+  // Reduced default size slightly for navbar density
+  let content = '?';
+  if (name === 'Back') content = '←';
+  if (name === 'Save') content = '💾'; // Placeholder, consider simple floppy disk or checkmark
+  if (name === 'Run') content = '▶';  // Placeholder, consider play icon
+
+  return (
+    <span style={{
+      width: size,
+      height: size,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: `${name === 'Back' ? size * 1.2 : size * 0.8}px`, // Make back arrow a bit larger
+      color: 'var(--boltdiy-button-text)', // Icon color from button if button has transparent bg
+      // If buttons have solid bg, this might need to be var(--boltdiy-accent-neon-text) or similar
+    }}>
+      {content}
+    </span>
+  );
 };
 
-
 export function EditorScreen() {
-  const [code, setCode] = useState('// Welcome to the bolt.diy Editor!\nfunction greet() {\n  console.log("Hello, bolt.diy world!");\n}\ngreet();');
+  const [code, setCode] = useState(
+    '// Bolt.DIY Mobile Editor\n\nfunction setup() {\n  console.log("Editor Ready!");\n}\n\nsetup();'
+  );
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Basic syntax highlighting (very simplified: keywords, comments, strings)
+  // Basic syntax highlighting (very simplified: comments, keywords, strings)
+  // For a real app, a lightweight mobile-friendly library or more robust regex would be needed.
   const highlightSyntax = (text: string) => {
     let highlighted = text;
-    // Comments (lines starting with //)
     highlighted = highlighted.replace(/^(\s*\/\/[^
-]*)/gm, '<span style="color: #777777;">$1</span>');
-    // Keywords (simple list)
-    const keywords = ['function', 'const', 'let', 'var', 'if', 'else', 'return', 'new', 'class'];
+]*)/gm, '<span style="color: #75715E;">$1</span>'); // Comment color
+    const keywords = ['function', 'const', 'let', 'var', 'if', 'else', 'return', 'new', 'class', 'console', 'log'];
     keywords.forEach(kw => {
       const regex = new RegExp(`\b(${kw})\b`, 'g');
-      highlighted = highlighted.replace(regex, '<span style="color: var(--boltdiy-neon-purple); font-weight: bold;">$1</span>');
+      highlighted = highlighted.replace(regex, '<span style="color: var(--boltdiy-accent-neon); font-weight: var(--boltdiy-font-weight-medium);">$1</span>');
     });
-    // Strings (simple quoted strings)
-    highlighted = highlighted.replace(/(".*?"|'.*?'|`.*?`)/g, '<span style="color: #A0D8EF;">$1</span>'); // Light blue for strings
+    highlighted = highlighted.replace(/(".*?"|'.*?'|`.*?`)/g, '<span style="color: #A6E22E;">$1</span>'); // String color (greenish)
+    highlighted = highlighted.replace(/(\(|\)|\{|\}|\[|\])/g, '<span style="color: #FD971F;">$1</span>'); // Brackets/Parentheses (orangeish)
     return highlighted.replace(/\n/g, '<br />');
   };
 
-  // Glowing cursor effect (CSS only for simplicity here)
-  // More advanced effects might need JS or a library
-  const editorStyles: React.CSSProperties = {
-    flexGrow: 1,
+  const editorWrapperStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
     width: '100%',
-    backgroundColor: '#080808', // Slightly different from main bg for contrast
-    color: 'var(--boltdiy-text)',
-    border: 'none',
-    outline: 'none',
-    padding: '15px',
-    fontFamily: "'Courier New', Courier, monospace", // Monospace font
-    fontSize: '14px',
-    lineHeight: '1.5',
-    whiteSpace: 'pre', // Preserve whitespace and newlines
-    overflowWrap: 'normal', // Prevent wrapping for code
-    overflow: 'auto', // Allow scrolling
-    caretColor: 'var(--boltdiy-neon-purple)', // Basic glowing cursor color
+    backgroundColor: 'var(--boltdiy-primary-bg)',
+    color: 'var(--boltdiy-primary-text)',
+    fontFamily: 'var(--boltdiy-font-family)',
+    overflow: 'hidden', // Main container doesn't scroll
   };
 
-  // For the overlay div used for highlighting
+  const navbarStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: `var(--boltdiy-spacing) calc(var(--boltdiy-spacing) * 2)`, // 6px V, 12px H
+    backgroundColor: 'var(--boltdiy-secondary-bg)', // Or a slightly different shade for navbar
+    borderBottom: `1px solid var(--boltdiy-input-border)`,
+    flexShrink: 0, // Prevent navbar from shrinking
+  };
+
+  const editorAreaStyle: React.CSSProperties = {
+    flexGrow: 1,
+    position: 'relative', // For highlight overlay
+    overflow: 'hidden', // Container for textarea and overlay scroll
+    backgroundColor: '#080808', // True black or very dark for editor bg
+  };
+
+  const commonTextareaStyles: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    border: 'none',
+    outline: 'none',
+    padding: 'calc(var(--boltdiy-spacing) * 2)', // 12px
+    fontFamily: "'Courier New', Courier, monospace",
+    fontSize: 'var(--boltdiy-font-size-min)', // 14px
+    lineHeight: '1.5',
+    whiteSpace: 'pre',
+    overflowWrap: 'normal',
+    overflow: 'auto', // Enable scrolling for textarea itself
+    resize: 'none',
+  };
+
   const highlightOverlayStyles: React.CSSProperties = {
-    ...editorStyles,
+    ...commonTextareaStyles,
     position: 'absolute',
     top: 0,
     left: 0,
     zIndex: 1,
-    pointerEvents: 'none', // Allows clicks to pass through to the textarea
-    whiteSpace: 'pre-wrap', // So it wraps like the textarea visually
-    color: 'transparent', // Hide the actual text, only show highlights
-    overflow: 'hidden', // Match textarea scroll
+    pointerEvents: 'none',
+    color: 'transparent', // Text is transparent, only spans with color show
+    backgroundColor: 'transparent', // Overlay is transparent
+    whiteSpace: 'pre-wrap', // Match visual wrapping of textarea
   };
 
-  const handleCodeChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCode(event.target.value);
+  const textareaStyles: React.CSSProperties = {
+    ...commonTextareaStyles,
+    position: 'relative',
+    zIndex: 2,
+    color: 'var(--boltdiy-primary-text)', // Actual text color
+    backgroundColor: 'transparent', // Textarea itself is transparent to see overlay
+    caretColor: 'var(--boltdiy-accent-neon)', // Glowing cursor
   };
 
+  // Sync scroll
   useEffect(() => {
-    // Sync scroll between textarea and highlight overlay
     const area = textareaRef.current;
-    const overlay = document.getElementById('highlight-overlay');
+    const overlay = document.getElementById('boltdiy-editor-highlight-overlay');
     if (area && overlay) {
       const syncScroll = () => {
         overlay.scrollTop = area.scrollTop;
@@ -95,61 +127,39 @@ export function EditorScreen() {
 
 
   return (
-    <div className={`${styles.boltdiyContainer}`} style={{ display: 'flex', flexDirection: 'column', height: '100vh', padding: 0 /* Remove container padding */ }}>
-      {/* Top Navbar */}
-      <nav
-        className={`${styles.smoothTransition}`}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '10px 15px',
-          backgroundColor: 'rgba(10,10,10,0.8)', // Darker shade for navbar
-          borderBottom: `1px solid var(--boltdiy-neon-purple)`,
-          backdropFilter: 'blur(5px)', // Optional: blur effect for navbar
-        }}
-      >
-        <button className={`${styles.button} ${styles.iconButton}`} style={{ backgroundColor: 'transparent', color: 'var(--boltdiy-neon-purple)' }}>
-          <Icon name="Back" /> <span style={{marginLeft: '5px'}}>Back</span>
-        </button>
-        <div>
-          <button className={`${styles.button}`} style={{ marginRight: '10px', backgroundColor: 'rgba(255,255,255,0.1)' }}>
-            <Icon name="Save" /> Save
-          </button>
-          <button className={`${styles.button} ${styles.glowingOutline}`}>
-            <Icon name="Run" /> Run
-          </button>
+    <div style={editorWrapperStyle} className="boltdiy-theme-wrapper">
+      <nav style={navbarStyle}>
+        <Button size="icon" variant="default" aria-label="Back" className="bg-transparent hover:bg-[color-mix(in_srgb,var(--boltdiy-accent-neon)_15%,transparent)]"> {/* Example transparent button */}
+          <EditorIcon name="Back" />
+        </Button>
+        <div style={{ display: 'flex', gap: 'var(--boltdiy-spacing)' /* 6px */ }}>
+          <Button size="default" variant="default" aria-label="Save" className="px-[var(--boltdiy-spacing)] text-sm"> {/* Smaller padding for dense navbar */}
+            <EditorIcon name="Save" />
+            <span style={{marginLeft: 'var(--boltdiy-spacing)'}}>Save</span>
+          </Button>
+          <Button size="default" variant="default" aria-label="Run" className="px-[var(--boltdiy-spacing)] text-sm focus:shadow-[0_0_8px_2px_var(--boltdiy-accent-neon)]">
+            <EditorIcon name="Run" />
+            <span style={{marginLeft: 'var(--boltdiy-spacing)'}}>Run</span>
+          </Button>
         </div>
       </nav>
 
-      {/* Editor Area */}
-      <div style={{ flexGrow: 1, position: 'relative', overflow: 'hidden' /* Container for textarea and overlay */ }}>
+      <div style={editorAreaStyle}>
         <div
-          id="highlight-overlay"
+          id="boltdiy-editor-highlight-overlay"
           style={highlightOverlayStyles}
           dangerouslySetInnerHTML={{ __html: highlightSyntax(code) }}
         />
         <textarea
           ref={textareaRef}
           value={code}
-          onChange={handleCodeChange}
+          onChange={(e) => setCode(e.target.value)}
           spellCheck="false"
           autoCapitalize="none"
           autoCorrect="off"
-          style={{...editorStyles, position: 'relative', zIndex: 2, background: 'transparent' /* Make textarea bg transparent */ }}
+          style={textareaStyles}
         />
       </div>
-       {/* CSS for glowing cursor (simplified) - more advanced might need JS */}
-      <style jsx global>{`
-        textarea:focus {
-          // The caret-color is the primary way. For additional glow:
-          // This is tricky with just CSS on a native caret.
-          // Libraries like CodeMirror handle this by rendering a custom cursor.
-        }
-        .token-comment { color: #777777; }
-        .token-keyword { color: var(--boltdiy-neon-purple); font-weight: bold; }
-        .token-string { color: #A0D8EF; }
-      `}</style>
     </div>
   );
 }
