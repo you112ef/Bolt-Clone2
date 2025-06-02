@@ -1,0 +1,8 @@
+// Standard breakpoints
+$breakpoint-small: 600px; // Mobile devices
+$breakpoint-medium: 1024px; // Tablet devices
+$breakpoint-large: 1280px; // Small desktop
+// Example media query usage:
+// @media (max-width: $breakpoint-small) { /* styles for mobile */ }
+// @media (min-width: #{$breakpoint-small + 1px}) and (max-width: $breakpoint-medium) { /* styles for tablet */ }
+// @media (min-width: #{$breakpoint-medium + 1px}) { /* styles for desktop */ }
