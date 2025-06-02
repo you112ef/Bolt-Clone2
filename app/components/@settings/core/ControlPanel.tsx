@@ -504,6 +504,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                     'will-change-scroll',
                     'touch-auto',
                   )}
+                  style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
                 >
                   <motion.div
                     key={activeTab || 'home'}
