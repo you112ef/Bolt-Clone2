@@ -459,7 +459,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                         <div className="i-ph:arrow-left w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-purple-500 transition-colors" />
                       </button>
                     )}
-                    <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-white truncate min-w-0">
                       {showTabManagement ? 'Tab Management' : activeTab ? TAB_LABELS[activeTab] : 'Control Panel'}
                     </DialogTitle>
                   </div>
@@ -510,7 +510,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="p-6"
+                    className="p-3 sm:p-6"
                   >
                     {showTabManagement ? (
                       <TabManagement />
