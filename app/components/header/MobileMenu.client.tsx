@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ThemeSwitch } from '~/components/ui/ThemeSwitch';
-import ControlPanel from '~/components/@settings/core/ControlPanel';
+import { ControlPanel } from '~/components/@settings/core/ControlPanel';
 
 interface MobileMenuProps {
   isOpen: boolean;
