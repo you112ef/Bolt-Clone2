@@ -493,6 +493,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                 {/* Content */}
                 <div
                   className={classNames(
+                    'relative', // Added relative positioning
                     'flex-1',
                     'overflow-y-auto',
                     'hover:overflow-y-auto',
