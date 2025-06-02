@@ -143,7 +143,7 @@ const AnimatedSwitch = ({ checked, onCheckedChange, id, label }: AnimatedSwitchP
       <div className="flex items-center gap-2">
         <label
           htmlFor={id}
-          className="text-sm text-gray-500 dark:text-gray-400 select-none cursor-pointer whitespace-nowrap w-[88px]"
+        className="text-sm text-gray-500 dark:text-gray-400 select-none cursor-pointer w-auto whitespace-normal sm:whitespace-nowrap sm:w-[88px]"
         >
           {label}
         </label>
@@ -432,9 +432,9 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
           >
             <motion.div
               className={classNames(
-                'w-[1200px] h-[90vh]',
+                'w-full h-full sm:rounded-2xl sm:w-[95vw] sm:h-auto sm:max-h-[calc(90vh_-_4rem)] sm:max-w-[1024px] lg:max-w-[1200px] overflow-hidden',
                 'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
-                'rounded-2xl shadow-2xl',
+                'sm:rounded-2xl shadow-2xl', // sm:rounded-2xl is repeated, but classNames should handle it. Original rounded-2xl is removed by the change above.
                 'border border-[#E5E5E5] dark:border-[#1A1A1A]',
                 'flex flex-col overflow-hidden',
                 'relative',
@@ -449,7 +449,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
               </div>
               <div className="relative z-10 flex flex-col h-full">
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center flex-wrap justify-between p-3 sm:p-4 md:px-6 md:py-4 border-b border-gray-200 dark:border-gray-700">
                   <div className="flex items-center space-x-4">
                     {(activeTab || showTabManagement) && (
                       <button
@@ -464,9 +464,9 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                     </DialogTitle>
                   </div>
 
-                  <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
                     {/* Mode Toggle */}
-                    <div className="flex items-center gap-2 min-w-[140px] border-r border-gray-200 dark:border-gray-800 pr-6">
+                    <div className="flex items-center gap-2 sm:border-r border-gray-200 dark:border-gray-800 pr-2 sm:pr-4 md:pr-6">
                       <AnimatedSwitch
                         id="developer-mode"
                         checked={developerMode}
@@ -476,7 +476,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                     </div>
 
                     {/* Avatar and Dropdown */}
-                    <div className="border-l border-gray-200 dark:border-gray-800 pl-6">
+                    <div className="sm:border-l border-gray-200 dark:border-gray-800 pl-2 sm:pl-4 md:pl-6">
                       <AvatarDropdown onSelectTab={handleTabClick} />
                     </div>
 
