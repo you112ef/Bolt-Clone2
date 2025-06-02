@@ -180,9 +180,9 @@ const runCode = () => alert("تشغيل الكود:\n" + code);
 
 const Header = ({ title, leftButton, rightButtons }) => ( <header className={styles.header}> {leftButton && <button className={styles.iconBtn} onClick={leftButton.onClick}>{leftButton.icon}</button>} <h1>{title}</h1> <div className={styles.rightButtons}> {rightButtons && rightButtons.map((btn, i) => ( <button key={i} className={styles.iconBtn} onClick={btn.onClick}>{btn.icon}</button> ))} </div> </header> );
 
-const ChatScreen = () => ( <div className={styles.screen}> <Header title="bolt.diy" rightButtons={[ { icon: <Settings size={24} />, onClick: () => setPage("settings") }, { icon: <Edit3 size={24} />, onClick: () => setPage("editor") } ]} /> <main className={styles.chatArea}> {messages.map(({ id, from, text }) => ( <div key={id} className={`${styles.chatMessage} ${styles[from]}`}>{text}</div> ))} </main> <footer className={styles.inputArea}> <input type="text" placeholder="Type your prompt…" value={prompt} onChange={(e) => setPrompt(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendPrompt()} /> <button onClick={sendPrompt} className={styles.sendBtn}><Zap size={24} /></button> </footer> </div> );
+const ChatScreen = () => ( <div className={styles.screen}> <Header title="bolt.diy" rightButtons={[ { icon: <Settings size={20} />, onClick: () => setPage("settings") }, { icon: <Edit3 size={20} />, onClick: () => setPage("editor") } ]} /> <main className={styles.chatArea}> {messages.map(({ id, from, text }) => ( <div key={id} className={`${styles.chatMessage} ${styles[from]}`}>{text}</div> ))} </main> <footer className={styles.inputArea}> <input type="text" placeholder="Type your prompt…" value={prompt} onChange={(e) => setPrompt(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendPrompt()} /> <button onClick={sendPrompt} className={styles.sendBtn}><Zap size={20} /></button> </footer> </div> );
 
-const SettingsScreen = () => ( <div className={styles.screen}> <Header title="الإعدادات" leftButton={{ icon: <ArrowLeft size={24} />, onClick: () => setPage("chat") }} /> <main className={styles.settingsArea}>
+const SettingsScreen = () => ( <div className={styles.screen}> <Header title="الإعدادات" leftButton={{ icon: <ArrowLeft size={20} />, onClick: () => setPage("chat") }} /> <main className={styles.settingsArea}>
           <label>
             Theme
             <select value={currentThemeName} onChange={(e) => setCurrentThemeName(e.target.value)}>
@@ -221,7 +221,7 @@ const SettingsScreen = () => ( <div className={styles.screen}> <Header title="ا
           </label>
         </main> </div> );
 
-const EditorScreen = () => ( <div className={styles.screen}> <Header title="المحرر" leftButton={{ icon: <ArrowLeft size={24} />, onClick: () => setPage("chat") }} rightButtons={[ { icon: <Save size={24} />, onClick: () => alert("تم الحفظ!") }, { icon: <Play size={24} />, onClick: runCode } ]} /> <main className={styles.editorArea}> <textarea className={styles.codeEditor} value={code} onChange={(e) => setCode(e.target.value)} /> </main> </div> );
+const EditorScreen = () => ( <div className={styles.screen}> <Header title="المحرر" leftButton={{ icon: <ArrowLeft size={20} />, onClick: () => setPage("chat") }} rightButtons={[ { icon: <Save size={20} />, onClick: () => alert("تم الحفظ!") }, { icon: <Play size={20} />, onClick: runCode } ]} /> <main className={styles.editorArea}> <textarea className={styles.codeEditor} value={code} onChange={(e) => setCode(e.target.value)} /> </main> </div> );
 
 return ( <div ref={appRef} className={`${styles.app} ${boltThemes[currentThemeName]?.themeType === 'dark' ? styles.darkMode : styles.lightMode}`}>
   {/* The styles.darkMode / styles.lightMode might become redundant if all styling is via CSS vars */}

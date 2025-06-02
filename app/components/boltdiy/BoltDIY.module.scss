@@ -30,10 +30,13 @@
   --font-monospace: monospace;
   --font-size-base: 0.875rem;
   --border-radius-sm: 0.3rem;
+
   --font-size-mobile-base: 16px;
   --spacing-unit: 8px;
   --input-min-height: 48px;
   --icon-size-default: 24px;
+  --button-min-size: 48px; // Default button min size (used in 480px for sendBtn previously)
+
 
   // Base App Styles
   max-width: 100vw;
@@ -56,6 +59,8 @@
   padding: 0.75rem;
   background-color: var(--bolt-background-color);
   transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .header {
@@ -66,6 +71,7 @@
   background-color: var(--bolt-header-bg-color);
   padding: var(--spacing-unit) 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
 }
 
 .header h1 {
@@ -74,12 +80,14 @@
   font-weight: 600;
   color: var(--bolt-header-text-color);
   transition: color 0.3s ease;
+  overflow-wrap: break-word;
 }
 
 .chatArea {
   flex: 1;
   overflow-y: auto;
   padding: 0.75rem 0;
+  width: 100%;
 }
 
 .chatMessage {
@@ -91,6 +99,8 @@
   line-height: 1.4;
   border: 1px solid var(--bolt-border-color);
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .chatMessage.ai {
@@ -113,6 +123,7 @@
   background-color: var(--bolt-input-area-bg-color);
   border-top: 1px solid var(--bolt-border-color);
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  width: 100%;
 }
 
 .inputArea input {
@@ -156,6 +167,7 @@
   flex: 1;
   display: flex;
   padding: 0.5rem 0;
+  width: 100%;
 }
 
 .codeEditor {
@@ -180,6 +192,7 @@
 
 .settingsArea {
   padding-top: 1rem;
+  width: 100%;
 }
 
 .settingsArea label {
@@ -191,6 +204,7 @@
   color: var(--bolt-settings-label-color);
   font-size: 0.85rem;
   transition: color 0.3s ease;
+  overflow-wrap: break-word;
 }
 
 .settingsArea select {
@@ -311,6 +325,12 @@
 /* Responsive for 480px and below */
 @media (max-width: 480px) {
   .app {
+    --font-size-mobile-base: 14px;
+    --spacing-unit: 6px;
+    --input-min-height: 40px;
+    --button-min-size: 40px;
+    --icon-size-mobile: 20px; /* Reference for icon visual size in TSX */
+
     font-size: var(--font-size-mobile-base);
   }
 
@@ -323,12 +343,14 @@
   }
 
   .header h1 {
-    font-size: 1.25rem;
+    font-size: 16px; /* Maintain readability */
   }
 
   .iconBtn {
-    width: calc(var(--spacing-unit) * 4);
-    height: calc(var(--spacing-unit) * 4);
+    min-width: var(--button-min-size);
+    min-height: var(--button-min-size);
+    padding: calc((var(--button-min-size) - var(--icon-size-mobile)) / 2); /* Center 20px icon in 40px button */
+    /* width & height will be var(--button-min-size) due to min-width/height if content is smaller */
   }
 
   .chatArea {
@@ -339,7 +361,7 @@
     margin: var(--spacing-unit) 0;
     padding: var(--spacing-unit);
     font-size: var(--font-size-mobile-base);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--spacing-unit);
   }
 
   .inputArea {
@@ -348,15 +370,19 @@
 
   .inputArea input {
     min-height: var(--input-min-height);
-    padding: calc(var(--spacing-unit) * 1.5);
+    padding: calc((var(--input-min-height) - var(--font-size-mobile-base) - 2px) / 2) var(--spacing-unit); /* Vertically center text */
     font-size: var(--font-size-mobile-base);
     border-radius: var(--border-radius-sm);
   }
 
   .sendBtn {
-    width: var(--input-min-height);
-    height: var(--input-min-height);
+    min-width: var(--button-min-size);
+    min-height: var(--button-min-size);
+    width: var(--button-min-size); /* Ensure it's circular */
+    height: var(--button-min-size); /* Ensure it's circular */
+    padding: calc((var(--button-min-size) - var(--icon-size-mobile)) / 2);
     margin-left: var(--spacing-unit);
+    border-radius: 50%;
   }
 
   .settingsArea {
@@ -370,22 +396,26 @@
 
   .settingsArea select {
     min-height: var(--input-min-height);
-    padding: calc(var(--spacing-unit) * 1.5);
+    padding: calc((var(--input-min-height) - var(--font-size-mobile-base) - 2px) / 2) var(--spacing-unit); /* Vertically center text */
     font-size: var(--font-size-mobile-base);
     border-radius: var(--border-radius-sm);
+    width: 100%; /* Make select full width */
+    box-sizing: border-box; /* Ensure padding doesn't make it overflow */
   }
 
   .settingsArea input[type='checkbox'] {
     transform: scale(1);
-    width: calc(var(--spacing-unit) * 2);
-    height: calc(var(--spacing-unit) * 2);
+    width: var(--icon-size-mobile);
+    height: var(--icon-size-mobile);
     margin-top: calc(var(--spacing-unit) / 2);
+    vertical-align: middle;
   }
 
   .codeEditor {
     padding: var(--spacing-unit);
-    font-size: 0.9rem;
+    font-size: calc(var(--font-size-mobile-base) - 2px);
     min-height: calc(var(--input-min-height) * 2);
+    border-radius: var(--spacing-unit);
   }
 
   .rightButtons {
