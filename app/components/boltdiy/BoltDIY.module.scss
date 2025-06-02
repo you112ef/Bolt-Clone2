@@ -1,64 +1,41 @@
-/* Light Mode (default) */
-:global(.lightMode) .app,
 .app {
+  // New Bolt Design System CSS Variables
+  --bolt-primary-color: #007bff;
+  --bolt-secondary-color: #6c757d;
+  --bolt-background-color: #ffffff;
+  --bolt-surface-color: #f8f9fa;
+  --bolt-text-primary-color: #212529;
+  --bolt-text-secondary-color: #495057;
+  --bolt-border-color: #dee2e6;
+  --bolt-error-color: #dc3545;
+  --bolt-success-color: #28a745;
+
+  // Component-specific semantic variables
+  --bolt-header-bg-color: var(--bolt-surface-color);
+  --bolt-header-text-color: var(--bolt-primary-color);
+  --bolt-chat-ai-bg-color: var(--bolt-surface-color);
+  --bolt-chat-user-bg-color: var(--bolt-primary-color);
+  --bolt-chat-user-text-color: #ffffff;
+  --bolt-input-area-bg-color: var(--bolt-surface-color);
+  --bolt-input-field-bg-color: var(--bolt-background-color);
+  --bolt-input-field-text-color: var(--bolt-text-primary-color);
+  --bolt-button-primary-bg-color: var(--bolt-primary-color);
+  --bolt-button-primary-text-color: #ffffff;
+  --bolt-icon-btn-color: var(--bolt-primary-color);
+  --bolt-settings-label-color: var(--bolt-text-secondary-color);
+
+  // Font & Spacing Variables
   --font-body: 'Inter', sans-serif;
   --font-heading: 'Orbitron', sans-serif;
   --font-monospace: monospace;
-  --font-size-base: 0.875rem; // 14px
+  --font-size-base: 0.875rem;
   --border-radius-sm: 0.3rem;
+  --font-size-mobile-base: 16px;
+  --spacing-unit: 8px;
+  --input-min-height: 48px;
+  --icon-size-default: 24px;
 
-  --primary-action-color: #FF7A59;
-  --secondary-accent-color: #3498DB;
-  --background-color: #FDFDFD;
-  --surface-color: #FFFFFF;
-  --text-primary-color: #2C3E50;
-  --text-secondary-color: #7F8C8D;
-  --border-color: #E0E0E0;
-  // Specific component colors
-  --header-text-color: var(--primary-action-color);
-  --chat-ai-bg-color: var(--surface-color);
-  --chat-user-bg-color: var(--primary-action-color);
-  --input-area-bg-color: #f0f0f0;
-  --input-field-bg-color: var(--surface-color);
-  --input-field-text-color: var(--text-primary-color);
-  --editor-bg-color: var(--surface-color);
-  --editor-text-color: var(--text-primary-color);
-  --icon-btn-color: var(--primary-action-color);
-  --send-btn-bg-color: var(--primary-action-color);
-  --send-btn-text-color: #FFFFFF;
-  --settings-label-color: var(--text-secondary-color);
-}
-
-:global(.darkMode) .app {
-  --font-body: 'Inter', sans-serif;
-  --font-heading: 'Orbitron', sans-serif;
-  --font-monospace: monospace;
-  --font-size-base: 0.875rem; // 14px
-  --border-radius-sm: 0.3rem;
-
-  --primary-action-color: #FF7A59;
-  --secondary-accent-color: #5DADE2;
-  --background-color: #2C3A47;
-  --surface-color: #34495E;
-  --text-primary-color: #ECF0F1;
-  --text-secondary-color: #BDC3C7;
-  --border-color: #4A6572;
-  // Specific component colors
-  --header-text-color: var(--primary-action-color);
-  --chat-ai-bg-color: var(--surface-color);
-  --chat-user-bg-color: #543d34;
-  --input-area-bg-color: #222c33;
-  --input-field-bg-color: var(--surface-color);
-  --input-field-text-color: var(--text-primary-color);
-  --editor-bg-color: var(--surface-color);
-  --editor-text-color: var(--text-primary-color);
-  --icon-btn-color: var(--primary-action-color);
-  --send-btn-bg-color: var(--primary-action-color);
-  --send-btn-text-color: #FFFFFF;
-  --settings-label-color: var(--text-secondary-color);
-}
-
-.app {
+  // Base App Styles
   max-width: 100vw;
   max-height: 100vh;
   margin: 0 auto;
@@ -66,9 +43,10 @@
   display: flex;
   flex-direction: column;
   font-family: var(--font-body);
-  background: var(--background-color);
-  color: var(--text-primary-color);
+  background-color: var(--bolt-background-color);
+  color: var(--bolt-text-primary-color);
   font-size: var(--font-size-base);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .screen {
@@ -76,19 +54,26 @@
   display: flex;
   flex-direction: column;
   padding: 0.75rem;
+  background-color: var(--bolt-background-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--header-text-color);
+  color: var(--bolt-header-text-color);
+  background-color: var(--bolt-header-bg-color);
+  padding: var(--spacing-unit) 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .header h1 {
   font-family: var(--font-heading);
-  font-size: 1.3rem; // Adjusted from 1.5rem
+  font-size: 1.3rem;
   font-weight: 600;
+  color: var(--bolt-header-text-color);
+  transition: color 0.3s ease;
 }
 
 .chatArea {
@@ -102,61 +87,65 @@
   padding: 0.6rem;
   border-radius: 0.75rem;
   max-width: 80%;
-  color: var(--text-primary-color);
-  font-size: 0.9rem; // Adjusted from 0.95rem
+  font-size: 0.9rem;
   line-height: 1.4;
+  border: 1px solid var(--bolt-border-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .chatMessage.ai {
-  background: var(--chat-ai-bg-color);
+  background-color: var(--bolt-chat-ai-bg-color);
+  color: var(--bolt-text-primary-color);
   align-self: flex-start;
-  border: 1px solid var(--border-color);
 }
 
 .chatMessage.user {
-  background: var(--chat-user-bg-color);
+  background-color: var(--bolt-chat-user-bg-color);
+  color: var(--bolt-chat-user-text-color);
   align-self: flex-end;
-  color: var(--send-btn-text-color);
+  border-color: transparent;
 }
 
 .inputArea {
   display: flex;
   align-items: center;
   padding: 0.4rem;
-  background: var(--input-area-bg-color);
-  border-top: 1px solid var(--border-color);
+  background-color: var(--bolt-input-area-bg-color);
+  border-top: 1px solid var(--bolt-border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .inputArea input {
   flex: 1;
   padding: 0.4rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--bolt-border-color);
   border-radius: 0.4rem;
-  background: var(--input-field-bg-color);
-  color: var(--input-field-text-color);
+  background-color: var(--bolt-input-field-bg-color);
+  color: var(--bolt-input-field-text-color);
   font-family: var(--font-body);
-  font-size: var(--font-size-base); // Use base font size
+  font-size: var(--font-size-base);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .inputArea input:focus {
   outline: none;
-  border-color: var(--primary-action-color);
-  box-shadow: 0 0 0 2px var(--primary-action-color-translucent, rgba(255, 122, 89, 0.3)); // Added focus shadow
+  border-color: var(--bolt-primary-color);
+  box-shadow: 0 0 0 2px var(--bolt-primary-color);
 }
 
 .sendBtn {
   margin-left: 0.4rem;
-  background: var(--send-btn-bg-color);
+  background-color: var(--bolt-button-primary-bg-color);
   border: none;
   border-radius: 50%;
   width: 2.2rem;
   height: 2.2rem;
-  // font-size removed as icon size is controlled by SVG component's prop
-  color: var(--send-btn-text-color);
+  color: var(--bolt-button-primary-text-color);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
 }
 
 .sendBtn:hover {
@@ -166,94 +155,89 @@
 .editorArea {
   flex: 1;
   display: flex;
-  padding: 0.5rem 0; // Add some padding around editor
+  padding: 0.5rem 0;
 }
 
 .codeEditor {
   width: 100%;
   height: 100%;
-  background: var(--editor-bg-color);
-  color: var(--editor-text-color);
-  border: 1px solid var(--border-color);
+  background-color: var(--bolt-input-field-bg-color);
+  color: var(--bolt-text-primary-color);
+  border: 1px solid var(--bolt-border-color);
   border-radius: 0.4rem;
   font-family: var(--font-monospace);
   padding: 0.75rem;
-  font-size: 0.85rem; // Adjusted from 0.9rem
+  font-size: 0.85rem;
   line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .codeEditor:focus {
   outline: none;
-  border-color: var(--primary-action-color);
-  box-shadow: 0 0 0 2px var(--primary-action-color-translucent, rgba(255, 122, 89, 0.3));
+  border-color: var(--bolt-primary-color);
+  box-shadow: 0 0 0 2px var(--bolt-primary-color);
 }
 
-
 .settingsArea {
-  padding-top: 1rem; // Add padding to settings area
+  padding-top: 1rem;
 }
 
 .settingsArea label {
   display: flex;
-  flex-direction: row; // Changed to row for better alignment of label text and input
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center; // Vertically align items in the center
+  align-items: center;
   margin-bottom: 0.75rem;
-  color: var(--settings-label-color);
-  font-size: 0.85rem; // Adjusted from 0.9rem
+  color: var(--bolt-settings-label-color);
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
 }
 
 .settingsArea select {
   margin-left: 1rem;
   margin-top: 0.3rem;
-  padding: 0.35rem 0.5rem; // Reduced padding
-  background-color: var(--surface-color); // Changed from --input-field-bg-color
-  color: var(--text-primary-color); // Changed from --input-field-text-color
-  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.5rem;
+  background-color: var(--bolt-input-field-bg-color);
+  color: var(--bolt-text-primary-color);
+  border: 1px solid var(--bolt-border-color);
   border-radius: var(--border-radius-sm);
   font-family: var(--font-body);
-  font-size: 0.8rem; // Slightly smaller font for select content
+  font-size: 0.8rem;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .settingsArea input[type='checkbox'] {
-  margin-left: 1rem; // Add margin to separate from label text
-  margin-top: 0.3rem; // From previous step, ensure it's aligned
-  // transform: scale(0.9); // Optional, decided not to use for now
-  // Standard checkbox styling is limited, focus on alignment and spacing
-  // Ensure it aligns well with the text which is font-size: 0.85rem;
-  // May need to adjust vertical-align if it looks off with the label text
-  vertical-align: middle; // Attempt to align checkbox with label text better
+  margin-left: 1rem;
+  margin-top: 0.3rem;
+  vertical-align: middle;
+  accent-color: var(--bolt-primary-color);
+  transition: accent-color 0.3s ease;
 }
 
-.settingsArea select:focus { // Separated focus styles for select
+.settingsArea select:focus {
   outline: none;
-  border-color: var(--primary-action-color);
-  box-shadow: 0 0 0 2px var(--primary-action-color-translucent, rgba(255, 122, 89, 0.3));
+  border-color: var(--bolt-primary-color);
+  box-shadow: 0 0 0 2px var(--bolt-primary-color);
 }
-
-// No specific focus style for standard checkbox, browser default is usually fine
-// or would require more complex custom checkbox styling.
-// .settingsArea input[type='checkbox']:focus { }
-
 
 .iconBtn {
   background: none;
   border: none;
-  color: var(--icon-btn-color);
-  // font-size removed as icon size is controlled by SVG component's prop
+  color: var(--bolt-icon-btn-color);
   cursor: pointer;
-  padding: 0.25rem; // Add some padding for easier clicking
+  padding: 0.25rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%; // Make icon buttons circular for better visual
-  width: 2.5rem; // Ensure consistent size
-  height: 2.5rem; // Ensure consistent size
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
 }
 
 .iconBtn:hover {
-  background-color: var(--surface-color); // Subtle hover effect
-  filter: brightness(0.9) contrast(1.1); // Adjust brightness/contrast on hover
+  background-color: var(--bolt-surface-color);
+  opacity: 0.8;
 }
 
 .rightButtons {
@@ -261,64 +245,150 @@
   gap: 0.35rem;
 }
 
+/* Responsive for 768px and below */
 @media (max-width: 768px) {
   .screen {
-    padding: 0.6rem; // Further reduced padding for mobile
+    padding: 0.6rem;
   }
 
   .header h1 {
-    font-size: 1.1rem; // Slightly smaller header title on mobile (was 1.3rem)
+    font-size: 1.1rem;
+  }
+  .header{
+    padding: calc(var(--spacing-unit)/2) 0;
   }
 
   .chatMessage {
-    padding: 0.5rem 0.75rem; // Smaller padding
-    border-radius: 0.6rem; // Adjust border radius
-    font-size: 0.85rem; // Slightly smaller chat message text (was 0.9rem)
-    // max-width: 90%; // Decided against this to keep consistent side alignment
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.6rem;
+    font-size: 0.85rem;
   }
 
   .inputArea {
-    padding: 0.3rem; // Reduced padding
+    padding: 0.3rem;
   }
 
   .inputArea input {
-    padding: 0.35rem; // Ensure input is still usable
-    font-size: var(--font-size-base); // Keep base font size for readability
+    padding: 0.35rem;
+    font-size: var(--font-size-base);
   }
 
   .sendBtn {
-    width: 2rem; // Slightly smaller send button
+    width: 2rem;
     height: 2rem;
-    // Icon size is controlled by prop in TSX, this just makes button smaller
   }
 
   .settingsArea label {
-    font-size: 0.8rem; // Slightly smaller labels in settings (was 0.85rem)
-    margin-bottom: 0.6rem; // Tighter spacing
+    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
   }
 
   .settingsArea select {
     padding: 0.3rem 0.4rem;
-    font-size: 0.75rem; // Make select text a bit smaller on mobile
+    font-size: 0.75rem;
   }
 
   .settingsArea input[type='checkbox'] {
-    transform: scale(0.9); // Slightly scale down checkbox for smaller screens
-    margin-top: 0.2rem; // Adjust alignment after scaling
+    transform: scale(0.9);
+    margin-top: 0.2rem;
   }
 
   .codeEditor {
     padding: 0.5rem;
-    font-size: 0.75rem; // Code editor font smaller on mobile (was 0.85rem)
+    font-size: 0.75rem;
   }
 
   .rightButtons {
-    gap: 0.25rem; // Reduce gap for header buttons
+    gap: 0.25rem;
   }
 
-  .iconBtn { // Reduce size of icon buttons in header
+  .iconBtn {
     width: 2rem;
     height: 2rem;
-    // SVG icon size controlled by prop, this makes the button smaller
+  }
+}
+
+/* Responsive for 480px and below */
+@media (max-width: 480px) {
+  .app {
+    font-size: var(--font-size-mobile-base);
+  }
+
+  .screen {
+    padding: var(--spacing-unit);
+  }
+
+  .header{
+    padding: var(--spacing-unit) 0;
+  }
+
+  .header h1 {
+    font-size: 1.25rem;
+  }
+
+  .iconBtn {
+    width: calc(var(--spacing-unit) * 4);
+    height: calc(var(--spacing-unit) * 4);
+  }
+
+  .chatArea {
+    padding: var(--spacing-unit) 0;
+  }
+
+  .chatMessage {
+    margin: var(--spacing-unit) 0;
+    padding: var(--spacing-unit);
+    font-size: var(--font-size-mobile-base);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .inputArea {
+    padding: var(--spacing-unit);
+  }
+
+  .inputArea input {
+    min-height: var(--input-min-height);
+    padding: calc(var(--spacing-unit) * 1.5);
+    font-size: var(--font-size-mobile-base);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .sendBtn {
+    width: var(--input-min-height);
+    height: var(--input-min-height);
+    margin-left: var(--spacing-unit);
+  }
+
+  .settingsArea {
+    padding-top: var(--spacing-unit);
+  }
+
+  .settingsArea label {
+    font-size: var(--font-size-mobile-base);
+    margin-bottom: var(--spacing-unit);
+  }
+
+  .settingsArea select {
+    min-height: var(--input-min-height);
+    padding: calc(var(--spacing-unit) * 1.5);
+    font-size: var(--font-size-mobile-base);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .settingsArea input[type='checkbox'] {
+    transform: scale(1);
+    width: calc(var(--spacing-unit) * 2);
+    height: calc(var(--spacing-unit) * 2);
+    margin-top: calc(var(--spacing-unit) / 2);
+  }
+
+  .codeEditor {
+    padding: var(--spacing-unit);
+    font-size: 0.9rem;
+    min-height: calc(var(--input-min-height) * 2);
+  }
+
+  .rightButtons {
+    gap: var(--spacing-unit);
   }
 }
