@@ -142,7 +142,7 @@ export function LockManager() {
   return (
     <div className="flex flex-col h-full overflow-hidden">
       {/* Controls */}
-      <div className="flex items-center gap-1 px-2 py-1 border-b border-bolt-elements-borderColor">
+      <div className="flex items-center flex-wrap gap-1 px-2 py-1 border-b border-bolt-elements-borderColor">
         {/* Search Input */}
         <div className="relative flex-1">
           <span className="absolute left-2 top-1/2 -translate-y-1/2 text-bolt-elements-textTertiary i-ph:magnifying-glass text-xs pointer-events-none" />
@@ -168,7 +168,7 @@ export function LockManager() {
       </div>
 
       {/* Header Row with Select All */}
-      <div className="flex items-center justify-between px-2 py-1 text-xs text-bolt-elements-textSecondary">
+      <div className="flex items-center flex-wrap justify-between gap-1 px-2 py-1 text-xs text-bolt-elements-textSecondary">
         <div>
           <Checkbox
             checked={selectAllCheckedState}
