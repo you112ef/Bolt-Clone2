@@ -109,6 +109,20 @@
 /* Color Tokens Dark Theme */
 :root,
 :root[data-theme='dark'] {
+  // New mock-up based theme variables
+  --bolt-body-bg: #0d0d0d;
+  // --bolt-text-primary: #ffffff; // Covered by --bolt-elements-textPrimary
+  --bolt-header-bg: #1a1a1a;
+  --bolt-section-bg: #1a1a1a;
+  --bolt-input-bg: #2a2a2a;
+  --bolt-input-text: #ffffff; // Similar to --bolt-elements-textPrimary
+  --bolt-button-gradient-start: #00aaff;
+  --bolt-button-gradient-end: #005577;
+  --bolt-button-hover-gradient-start: #0099dd;
+  --bolt-button-hover-gradient-end: #003344;
+  --bolt-text-notice: #aaa;
+
+  // Existing theme variables (adjust if needed, or use new ones alongside)
   --bolt-elements-borderColor: theme('colors.alpha.white.10');
   --bolt-elements-borderColorActive: theme('colors.accent.500');
 
@@ -212,6 +226,11 @@
   --bolt-terminal-brightWhite: #f1f1f0;
   --modern-scrollbar-thumb-background: rgba(100, 100, 100, 0.3); // Example dark theme color (adjust as needed)
   --modern-scrollbar-thumb-backgroundHover: rgba(10, 10, 10, 0.8);
+
+  /* Ensure existing variables are updated if they directly map to new scheme */
+  /* For example, if --bolt-elements-bg-depth-1 is the main page background */
+  /* --bolt-elements-bg-depth-1: var(--bolt-body-bg); */
+  /* --bolt-elements-textPrimary is already #ffffff, matching --bolt-text-primary */
 }
 
 /*

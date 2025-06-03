@@ -73,7 +73,7 @@ export default function SettingsTab() {
           <span className="text-sm font-medium text-bolt-elements-textPrimary">Preferences</span>
         </div>
 
-        <div>
+        <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 mb-2">
             <div className="i-ph:translate-fill w-4 h-4 text-bolt-elements-textSecondary" />
             <label className="block text-sm text-bolt-elements-textSecondary">Language</label>
@@ -108,7 +108,7 @@ export default function SettingsTab() {
             <div className="i-ph:bell-fill w-4 h-4 text-bolt-elements-textSecondary" />
             <label className="block text-sm text-bolt-elements-textSecondary">Notifications</label>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
             <span className="text-sm text-bolt-elements-textSecondary">
               {settings.notifications ? 'Notifications are enabled' : 'Notifications are disabled'}
             </span>
@@ -153,7 +153,7 @@ export default function SettingsTab() {
           <span className="text-sm font-medium text-bolt-elements-textPrimary">Time Settings</span>
         </div>
 
-        <div>
+        <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 mb-2">
             <div className="i-ph:globe-fill w-4 h-4 text-bolt-elements-textSecondary" />
             <label className="block text-sm text-bolt-elements-textSecondary">Timezone</label>
@@ -188,7 +188,7 @@ export default function SettingsTab() {
         </div>
 
         <div className="space-y-2">
-          <div className="flex items-center justify-between p-2 rounded-lg bg-[#FAFAFA] dark:bg-[#1A1A1A]">
+          <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between p-2 rounded-lg bg-[#FAFAFA] dark:bg-[#1A1A1A]">
             <div className="flex flex-col">
               <span className="text-sm text-bolt-elements-textPrimary">Toggle Theme</span>
               <span className="text-xs text-bolt-elements-textSecondary">Switch between light and dark mode</span>
