@@ -150,7 +150,7 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
       {/* Textarea container - mock-up doesn't show a border around textarea itself, but rather the whole ChatBox section */}
       {/* The existing border is on the ChatBox's root div. */}
       <div>
-        <label htmlFor="customPromptTextarea" className="block mb-[5px] text-xs" style={{ color: 'var(--bolt-text-primary)' }}>
+        <label htmlFor="customPromptTextarea" className="block mb-[0.3125rem] text-xs" style={{ color: 'var(--bolt-text-primary)' }}> {/* 5px -> 0.3125rem */}
           الوصف المخصص
         </label>
         <textarea
@@ -165,11 +165,11 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
           )}
           onDragEnter={(e) => { /* Kept for desktop if needed, but may be less relevant for mobile */
             e.preventDefault();
-            e.currentTarget.style.border = '2px solid #1488fc';
+            e.currentTarget.style.border = '0.125rem solid #1488fc'; // 2px -> 0.125rem
           }}
           onDragOver={(e) => {
             e.preventDefault();
-            e.currentTarget.style.border = '2px solid #1488fc';
+            e.currentTarget.style.border = '0.125rem solid #1488fc'; // 2px -> 0.125rem
           }}
           onDragLeave={(e) => {
             e.preventDefault();
@@ -220,7 +220,7 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
         {/* Old SendButton is removed */}
       </div>
 
-      <div className="text-xs mt-[-8px] mb-2.5" style={{ color: 'var(--bolt-text-notice)' }}>
+      <div className="text-xs mt-[-0.5rem] mb-2.5" style={{ color: 'var(--bolt-text-notice)' }}> {/* -8px -> -0.5rem */}
         الوصف يدعم اللغة العربية والإنجليزية ويُستخدم لتوليد استجابات دقيقة وفورية عبر الذكاء الاصطناعي.
       </div>
 

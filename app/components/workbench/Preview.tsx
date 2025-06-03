@@ -179,8 +179,8 @@ export const Preview = memo(() => {
         style={{
           position: 'absolute',
           top: 0,
-          ...(side === 'left' ? { left: 0, marginLeft: '-7px' } : { right: 0, marginRight: '-7px' }),
-          width: '15px',
+          ...(side === 'left' ? { left: 0, marginLeft: '-0.4375rem' } : { right: 0, marginRight: '-0.4375rem' }), // -7px to -0.4375rem
+          width: '0.9375rem', // 15px to 0.9375rem
           height: '100%',
           cursor: 'ew-resize',
           background: 'var(--bolt-elements-background-depth-4, rgba(0,0,0,.3))',
@@ -363,10 +363,10 @@ export const Preview = memo(() => {
       <div
         style={{
           color: 'var(--bolt-elements-textSecondary, rgba(0,0,0,0.5))',
-          fontSize: '10px',
-          lineHeight: '5px',
+          fontSize: '0.625rem', // 10px to 0.625rem
+          lineHeight: '0.3125rem', // 5px to 0.3125rem
           userSelect: 'none',
-          marginLeft: '1px',
+          marginLeft: '0.0625rem', // 1px to 0.0625rem
         }}
       >
         ••• •••
@@ -402,7 +402,7 @@ export const Preview = memo(() => {
           const newWindow = window.open(
             '',
             '_blank',
-            `width=${width + frameWidth},height=${height + frameHeight + 40},menubar=no,toolbar=no,location=no,status=no`,
+            `width=${width + frameWidth},height=${height + frameHeight + 40},menubar=no,toolbar=no,location=no,status=no`, // 40 is a pixel value (2.5rem * 16), calculation remains in pixels
           );
 
           if (!newWindow) {
@@ -412,28 +412,29 @@ export const Preview = memo(() => {
 
           // Create the HTML content for the frame
           const frameColor = getFrameColor();
-          const frameRadius = size.frameType === 'mobile' ? '36px' : '20px';
-          const framePadding =
+          const frameRadiusRem = size.frameType === 'mobile' ? '2.25rem' : '1.25rem'; // 36px, 20px
+          const framePaddingRem =
             size.frameType === 'mobile'
               ? isLandscape
-                ? '40px 60px'
-                : '40px 20px'
+                ? '2.5rem 3.75rem'  // 40px 60px
+                : '2.5rem 1.25rem'  // 40px 20px
               : isLandscape
-                ? '30px 50px'
-                : '50px 30px';
+                ? '1.875rem 3.125rem' // 30px 50px
+                : '3.125rem 1.875rem'; // 50px 30px
 
           // Position notch and home button based on orientation
-          const notchTop = isLandscape ? '50%' : '20px';
-          const notchLeft = isLandscape ? '30px' : '50%';
+          const notchTopRem = isLandscape ? '50%' : '1.25rem'; // 20px
+          const notchLeftRem = isLandscape ? '1.875rem' : '50%'; // 30px
           const notchTransform = isLandscape ? 'translateY(-50%)' : 'translateX(-50%)';
-          const notchWidth = isLandscape ? '8px' : size.frameType === 'mobile' ? '60px' : '80px';
-          const notchHeight = isLandscape ? (size.frameType === 'mobile' ? '60px' : '80px') : '8px';
+          const notchWidthRem = isLandscape ? '0.5rem' : size.frameType === 'mobile' ? '3.75rem' : '5rem'; // 8px, 60px, 80px
+          const notchHeightRem = isLandscape ? (size.frameType === 'mobile' ? '3.75rem' : '5rem') : '0.5rem'; // 60px, 80px, 8px
+          const notchBorderRadiusRem = '0.25rem'; // 4px
 
-          const homeBottom = isLandscape ? '50%' : '15px';
-          const homeRight = isLandscape ? '30px' : '50%';
+          const homeBottomRem = isLandscape ? '50%' : '0.9375rem'; // 15px
+          const homeRightRem = isLandscape ? '1.875rem' : '50%'; // 30px
           const homeTransform = isLandscape ? 'translateY(50%)' : 'translateX(50%)';
-          const homeWidth = isLandscape ? '4px' : '40px';
-          const homeHeight = isLandscape ? '40px' : '4px';
+          const homeWidthRem = isLandscape ? '0.25rem' : '2.5rem'; // 4px, 40px
+          const homeHeightRem = isLandscape ? '2.5rem' : '0.25rem'; // 40px, 4px
 
           // Create HTML content for the wrapper page
           const htmlContent = `
@@ -461,20 +462,20 @@ export const Preview = memo(() => {
                 
                 .device-name {
                   position: absolute;
-                  top: -30px;
+                  top: -1.875rem; /* -30px */
                   left: 0;
                   right: 0;
                   text-align: center;
-                  font-size: 14px;
+                  font-size: 0.875rem; /* 14px */
                   color: #333;
                 }
                 
                 .device-frame {
                   position: relative;
-                  border-radius: ${frameRadius};
+                  border-radius: ${frameRadiusRem};
                   background: ${frameColor};
-                  padding: ${framePadding};
-                  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                  padding: ${framePaddingRem};
+                  box-shadow: 0 0.625rem 1.875rem rgba(0,0,0,0.2); /* 0 10px 30px */
                   overflow: hidden;
                 }
                 
@@ -482,13 +483,13 @@ export const Preview = memo(() => {
                 .device-frame:before {
                   content: '';
                   position: absolute;
-                  top: ${notchTop};
-                  left: ${notchLeft};
+                  top: ${notchTopRem};
+                  left: ${notchLeftRem};
                   transform: ${notchTransform};
-                  width: ${notchWidth};
-                  height: ${notchHeight};
+                  width: ${notchWidthRem};
+                  height: ${notchHeightRem};
                   background: #333;
-                  border-radius: 4px;
+                  border-radius: ${notchBorderRadiusRem};
                   z-index: 2;
                 }
                 
@@ -496,11 +497,11 @@ export const Preview = memo(() => {
                 .device-frame:after {
                   content: '';
                   position: absolute;
-                  bottom: ${homeBottom};
-                  right: ${homeRight};
+                  bottom: ${homeBottomRem};
+                  right: ${homeRightRem};
                   transform: ${homeTransform};
-                  width: ${homeWidth};
-                  height: ${homeHeight};
+                  width: ${homeWidthRem};
+                  height: ${homeHeightRem};
                   background: #333;
                   border-radius: 50%;
                   z-index: 2;
@@ -557,17 +558,17 @@ export const Preview = memo(() => {
   // Function to get the correct frame padding based on orientation
   const getFramePadding = useCallback(() => {
     if (!selectedWindowSize) {
-      return '40px 20px';
+      return '2.5rem 1.25rem'; // 40px 20px
     }
 
     const isMobile = selectedWindowSize.frameType === 'mobile';
 
     if (isLandscape) {
       // Increase horizontal padding in landscape mode to ensure full device frame is visible
-      return isMobile ? '40px 60px' : '30px 50px';
+      return isMobile ? '2.5rem 3.75rem' : '1.875rem 3.125rem'; // 40px 60px : 30px 50px
     }
 
-    return isMobile ? '40px 20px' : '50px 30px';
+    return isMobile ? '2.5rem 1.25rem' : '3.125rem 1.875rem'; // 40px 20px : 50px 30px
   }, [isLandscape, selectedWindowSize]);
 
   // Function to get the scale factor for the device frame
@@ -714,7 +715,7 @@ export const Preview = memo(() => {
             {isWindowSizeDropdownOpen && (
               <>
                 <div className="fixed inset-0 z-50" onClick={() => setIsWindowSizeDropdownOpen(false)} />
-                <div className="absolute right-0 top-full mt-2 z-50 min-w-[240px] max-h-[400px] overflow-y-auto bg-white dark:bg-black rounded-xl shadow-2xl border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.1)] overflow-hidden">
+                <div className="absolute right-0 top-full mt-2 z-50 min-w-[15rem] max-h-[25rem] overflow-y-auto bg-white dark:bg-black rounded-xl shadow-2xl border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.1)] overflow-hidden"> {/* 240px to 15rem, 400px to 25rem */}
                   <div className="p-3 border-b border-[#E5E7EB] dark:border-[rgba(255,255,255,0.1)]">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium text-[#111827] dark:text-gray-300">Window Options</span>
@@ -882,16 +883,16 @@ export const Preview = memo(() => {
                     className="device-frame-container"
                     style={{
                       position: 'relative',
-                      borderRadius: selectedWindowSize.frameType === 'mobile' ? '36px' : '20px',
+                      borderRadius: selectedWindowSize.frameType === 'mobile' ? '2.25rem' : '1.25rem', // 36px, 20px
                       background: getFrameColor(),
-                      padding: getFramePadding(),
-                      boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                      padding: getFramePadding(), // This function now returns rem values
+                      boxShadow: '0 0.625rem 1.875rem rgba(0,0,0,0.2)', // 0 10px 30px
                       overflow: 'hidden',
                       transform: 'scale(1)',
                       transformOrigin: 'center center',
                       transition: 'all 0.3s ease',
-                      margin: '40px',
-                      width: isLandscape
+                      margin: '2.5rem', // 40px
+                      width: isLandscape // Pixel calculations for width/height remain, using numbers that are effectively (targetRem * 16)
                         ? `${selectedWindowSize.height + (selectedWindowSize.frameType === 'mobile' ? 120 : 60)}px`
                         : `${selectedWindowSize.width + (selectedWindowSize.frameType === 'mobile' ? 40 : 60)}px`,
                       height: isLandscape
@@ -903,13 +904,13 @@ export const Preview = memo(() => {
                     <div
                       style={{
                         position: 'absolute',
-                        top: isLandscape ? '50%' : '20px',
-                        left: isLandscape ? '30px' : '50%',
+                        top: isLandscape ? '50%' : '1.25rem', // 20px
+                        left: isLandscape ? '1.875rem' : '50%', // 30px
                         transform: isLandscape ? 'translateY(-50%)' : 'translateX(-50%)',
-                        width: isLandscape ? '8px' : selectedWindowSize.frameType === 'mobile' ? '60px' : '80px',
-                        height: isLandscape ? (selectedWindowSize.frameType === 'mobile' ? '60px' : '80px') : '8px',
+                        width: isLandscape ? '0.5rem' : selectedWindowSize.frameType === 'mobile' ? '3.75rem' : '5rem', // 8px, 60px, 80px
+                        height: isLandscape ? (selectedWindowSize.frameType === 'mobile' ? '3.75rem' : '5rem') : '0.5rem', // 60px, 80px, 8px
                         background: '#333',
-                        borderRadius: '4px',
+                        borderRadius: '0.25rem', // 4px
                         zIndex: 2,
                       }}
                     />
@@ -918,11 +919,11 @@ export const Preview = memo(() => {
                     <div
                       style={{
                         position: 'absolute',
-                        bottom: isLandscape ? '50%' : '15px',
-                        right: isLandscape ? '30px' : '50%',
+                        bottom: isLandscape ? '50%' : '0.9375rem', // 15px
+                        right: isLandscape ? '1.875rem' : '50%', // 30px
                         transform: isLandscape ? 'translateY(50%)' : 'translateX(50%)',
-                        width: isLandscape ? '4px' : '40px',
-                        height: isLandscape ? '40px' : '4px',
+                        width: isLandscape ? '0.25rem' : '2.5rem', // 4px, 40px
+                        height: isLandscape ? '2.5rem' : '0.25rem', // 40px, 4px
                         background: '#333',
                         borderRadius: '50%',
                         zIndex: 2,
@@ -973,14 +974,14 @@ export const Preview = memo(() => {
               <div
                 style={{
                   position: 'absolute',
-                  top: '-25px',
+                  top: '-1.5625rem', // -25px
                   left: '50%',
                   transform: 'translateX(-50%)',
                   background: 'var(--bolt-elements-background-depth-3, rgba(0,0,0,0.7))',
                   color: 'var(--bolt-elements-textPrimary, white)',
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                  fontSize: '12px',
+                  padding: '0.125rem 0.5rem', // 2px 8px
+                  borderRadius: '0.25rem', // 4px
+                  fontSize: '0.75rem', // 12px
                   pointerEvents: 'none',
                   opacity: resizingState.current.isResizing ? 1 : 0,
                   transition: 'opacity 0.3s',

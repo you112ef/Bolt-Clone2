@@ -68,7 +68,7 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
               return (
                 <div
                   key={index}
-                  className={classNames('flex gap-4 p-6 py-5 w-full rounded-[calc(0.75rem-1px)]', {
+                  className={classNames('flex gap-4 p-6 py-5 w-full rounded-[calc(0.75rem-0.0625rem)]', { // 1px -> 0.0625rem
                     'bg-bolt-elements-messages-background': isUserMessage || !isStreaming || (isStreaming && !isLast),
                     'bg-gradient-to-b from-bolt-elements-messages-background from-30% to-transparent':
                       isStreaming && isLast,
@@ -76,7 +76,7 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
                   })}
                 >
                   {isUserMessage && (
-                    <div className="flex items-center justify-center w-[40px] h-[40px] overflow-hidden bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-500 rounded-full shrink-0 self-start">
+                    <div className="flex items-center justify-center w-[2.5rem] h-[2.5rem] overflow-hidden bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-500 rounded-full shrink-0 self-start"> {/* 40px -> 2.5rem */}
                       {profile?.avatar ? (
                         <img
                           src={profile.avatar}

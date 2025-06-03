@@ -402,7 +402,7 @@ export const Workbench = memo(
                         </DropdownMenu.Trigger>
                         <DropdownMenu.Content
                           className={classNames(
-                            'min-w-[240px] z-[250]',
+                            'min-w-[15rem] z-[250]', // 240px -> 15rem
                             'bg-white dark:bg-[#141414]',
                             'rounded-lg shadow-lg',
                             'border border-gray-200/50 dark:border-gray-800/50',
