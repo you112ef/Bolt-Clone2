@@ -95,16 +95,17 @@ export default defineConfig((config) => {
       target: 'esnext',
     },
     plugins: [
-      nodePolyfills({
-        include: ['buffer', 'process', 'util', 'stream'],
-        globals: {
-          Buffer: true,
-          process: true,
-          global: true,
-        },
-        protocolImports: true,
-        exclude: ['child_process', 'fs', 'path'],
-      }),
+      // nodePolyfills plugin removed as a test for server bundle size reduction
+      // nodePolyfills({
+      //   include: ['buffer', 'process', 'util', 'stream'],
+      //   globals: {
+      //     Buffer: true,
+      //     process: true,
+      //     global: true,
+      //   },
+      //   protocolImports: true,
+      //   exclude: ['child_process', 'fs', 'path'],
+      // }),
       {
         name: 'buffer-polyfill',
         transform(code, id) {
