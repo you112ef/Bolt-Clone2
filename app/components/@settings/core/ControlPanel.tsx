@@ -503,6 +503,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                     'dark:scrollbar-thumb-[#333333] dark:hover:scrollbar-thumb-[#444444]',
                     'will-change-scroll',
                     'touch-auto',
+                    'overscroll-y-contain', // Added overscroll-behavior
                   )}
                   style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
                 >
