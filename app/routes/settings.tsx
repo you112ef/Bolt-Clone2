@@ -5,7 +5,7 @@ import { Input } from '~/components/ui/Input';
 import { Label } from '~/components/ui/Label';
 import { SearchInput } from '~/components/ui/SearchInput';
 import { Switch } from '~/components/ui/Switch';
-import { Tooltip, WithTooltip } from '~/components/ui/Tooltip'; // Assuming Tooltip and WithTooltip are available
+import WithTooltip from '~/components/ui/Tooltip'; // Corrected: WithTooltip is default export
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '~/components/ui/Collapsible'; // Assuming Collapsible components
 import { classNames } from '~/utils/classNames';
 import { useState } from 'react';
