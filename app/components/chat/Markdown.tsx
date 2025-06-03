@@ -4,9 +4,10 @@ import type { BundledLanguage } from 'shiki';
 import { createScopedLogger } from '~/utils/logger';
 import { rehypePlugins, remarkPlugins, allowedHTMLElements } from '~/utils/markdown';
 import { Artifact, openArtifactInWorkbench } from './Artifact';
-import { CodeBlock } from './CodeBlock';
+import { CodeBlock } from './CodeBlock.client'; // Updated import
 import type { Message } from 'ai';
 import styles from './Markdown.module.scss';
+import { ClientOnly } from 'remix-utils/client-only'; // Added ClientOnly import
 import ThoughtBox from './ThoughtBox';
 import type { ProviderInfo } from '~/types/model';
 
@@ -67,13 +68,24 @@ export const Markdown = memo(
             firstChild.tagName === 'code' &&
             firstChild.children[0].type === 'text'
           ) {
-            const { className, ...rest } = firstChild.properties;
-            const [, language = 'plaintext'] = /language-(\w+)/.exec(String(className) || '') ?? [];
+            const codeContent = firstChild.children[0].value;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { node: _node, ...propertiesFromNode } = firstChild.properties || {}; // Extract properties, excluding node itself if present
+            const { className: codeClassName, ...restOfProps } = propertiesFromNode;
+            const langClass = String(codeClassName) || '';
+            const [, language = 'plaintext'] = /language-(\w+)/.exec(langClass) ?? [];
 
-            return <CodeBlock code={firstChild.children[0].value} language={language as BundledLanguage} {...rest} />;
+            // Pass all original properties from the <code> element to the fallback and CodeBlock
+            const allCodeProps = { ...restOfProps, className: langClass };
+
+            return (
+              <ClientOnly fallback={<pre><code {...allCodeProps}>{codeContent}</code></pre>}>
+                {() => <CodeBlock code={codeContent} language={language as BundledLanguage} {...allCodeProps} />}
+              </ClientOnly>
+            );
           }
 
-          return <pre {...rest}>{children}</pre>;
+          return <pre {...props}>{children}</pre>; // Pass original props to pre if not using CodeBlock
         },
         button: ({ node, children, ...props }) => {
           const dataProps = node?.properties as Record<string, unknown>;
