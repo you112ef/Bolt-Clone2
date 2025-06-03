@@ -52,7 +52,7 @@ export default function DashboardPage() {
           ))}
         </div>
       </section>
-      
+
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Recent Actions List */}
         <section className="lg:col-span-2">

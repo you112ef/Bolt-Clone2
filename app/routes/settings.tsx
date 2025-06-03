@@ -96,7 +96,7 @@ export default function SettingsPage() {
   const toggleCategory = (id: string) => {
     setOpenCategories(prev => ({ ...prev, [id]: !prev[id] }));
   };
-  
+
   // Basic search filter (can be made more sophisticated)
   const filteredCategories = settingsCategories.map(category => ({
     ...category,
@@ -117,8 +117,8 @@ export default function SettingsPage() {
 
       {/* Search Settings Bar */}
       <div className="mb-6">
-        <SearchInput 
-          placeholder="Search settings..." 
+        <SearchInput
+          placeholder="Search settings..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           aria-label="Search settings" // Added aria-label

@@ -128,7 +128,7 @@ export default function FlowsPage() {
               </div>
               <p className="text-xs text-text/75 mt-1">Action to send an email.</p>
             </Card>
-            
+
             {/* Example Node 3 (Condition) */}
             <Card className="absolute top-60 left-96 w-52 p-3 shadow-lg z-10" onClick={() => { setCurrentSelectedNode({ type: 'condition', name: 'Check Email Open', settings: [{id: 'wait_duration', label: 'Wait (days)', type: 'number', value: '3'}] }); setIsConfigPanelOpen(true); }}>
               <div className="flex items-center">

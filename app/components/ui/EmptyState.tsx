@@ -158,8 +158,8 @@ export function EmptyState({
 
           {secondaryActionLabel && onSecondaryAction && (
             <motion.div {...buttonAnimation}>
-              <Button 
-                onClick={onSecondaryAction} 
+              <Button
+                onClick={onSecondaryAction}
                 variant="outline" // This will use the new outline button style
                 size={styles.buttonSize}
               >

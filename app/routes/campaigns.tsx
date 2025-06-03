@@ -39,7 +39,7 @@ export default function CampaignsPage() {
   const [editingCampaign, setEditingCampaign] = useState<typeof campaignsData[0] | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredCampaigns = campaignsData.filter(campaign => 
+  const filteredCampaigns = campaignsData.filter(campaign =>
     campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -52,7 +52,7 @@ export default function CampaignsPage() {
     setIsFormOpen(false);
     setEditingCampaign(null);
   };
-  
+
   const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Logic to save campaign data would go here
@@ -77,10 +77,10 @@ export default function CampaignsPage() {
       {/* Filter and Search Section */}
       <div className="flex flex-col sm:flex-row items-center gap-3">
         <div className="w-full sm:w-auto flex-grow sm:max-w-xs">
-          <SearchInput 
-            placeholder="Search campaigns..." 
+          <SearchInput
+            placeholder="Search campaigns..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} 
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         {/* Placeholder for more filters e.g., Dropdown for status */}
@@ -133,7 +133,7 @@ export default function CampaignsPage() {
                 {editingCampaign ? 'Update the details of your campaign.' : 'Fill in the details to start a new campaign.'}
               </DialogDescription>
             </div>
-            
+
             <div className="space-y-4 p-6"> {/* Content padding */}
               <div>
                 <Label htmlFor="campaignName">Campaign Name</Label>
@@ -157,10 +157,10 @@ export default function CampaignsPage() {
               <div>
                 <Label htmlFor="status">Status</Label>
                 {/* Basic select, could be replaced with custom Select component if available */}
-                <select 
-                  id="status" 
+                <select
+                  id="status"
                   name="status"
-                  defaultValue={editingCampaign?.status || 'Draft'} 
+                  defaultValue={editingCampaign?.status || 'Draft'}
                   className="w-full mt-1 h-10 rounded-lg border border-border bg-background px-3 py-2 text-sm text-text ring-offset-background focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
                   <option>Draft</option>

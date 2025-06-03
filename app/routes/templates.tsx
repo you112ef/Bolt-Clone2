@@ -14,57 +14,57 @@ export const meta: MetaFunction = () => {
 
 // Placeholder Template Data
 const allTemplates = [
-  { 
-    id: 'tpl1', 
-    name: 'E-commerce Welcome Email Series', 
-    description: 'A 3-email series to welcome new customers and guide them to their first purchase.', 
-    category: 'Email Marketing', 
-    tags: ['E-commerce', 'Welcome Series', 'Automation'], 
+  {
+    id: 'tpl1',
+    name: 'E-commerce Welcome Email Series',
+    description: 'A 3-email series to welcome new customers and guide them to their first purchase.',
+    category: 'Email Marketing',
+    tags: ['E-commerce', 'Welcome Series', 'Automation'],
     icon: 'i-ph:shopping-cart-duotone', // Placeholder icon
-    previewUrl: 'https://via.placeholder.com/300x200/4F46E5/FFFFFF?text=Email+Series' 
+    previewUrl: 'https://via.placeholder.com/300x200/4F46E5/FFFFFF?text=Email+Series'
   },
-  { 
-    id: 'tpl2', 
-    name: 'SaaS User Onboarding Flow', 
-    description: 'Guide new SaaS users through key activation steps with targeted messages and actions.', 
-    category: 'SaaS', 
-    tags: ['Onboarding', 'User Engagement', 'Automation'], 
+  {
+    id: 'tpl2',
+    name: 'SaaS User Onboarding Flow',
+    description: 'Guide new SaaS users through key activation steps with targeted messages and actions.',
+    category: 'SaaS',
+    tags: ['Onboarding', 'User Engagement', 'Automation'],
     icon: 'i-ph:rocket-launch-duotone',
     previewUrl: 'https://via.placeholder.com/300x200/10B981/FFFFFF?text=SaaS+Onboarding'
   },
-  { 
-    id: 'tpl3', 
-    name: 'Lead Nurturing Campaign', 
-    description: 'Nurture leads from initial contact to sales-ready with a multi-touchpoint campaign.', 
-    category: 'Lead Generation', 
-    tags: ['Nurturing', 'CRM', 'Sales'], 
+  {
+    id: 'tpl3',
+    name: 'Lead Nurturing Campaign',
+    description: 'Nurture leads from initial contact to sales-ready with a multi-touchpoint campaign.',
+    category: 'Lead Generation',
+    tags: ['Nurturing', 'CRM', 'Sales'],
     icon: 'i-ph:users-three-duotone',
     previewUrl: 'https://via.placeholder.com/300x200/FACC15/111827?text=Lead+Nurturing'
   },
-  { 
-    id: 'tpl4', 
-    name: 'Customer Feedback Survey Flow', 
-    description: 'Automatically send feedback surveys after key interactions and analyze results.', 
-    category: 'Customer Service', 
-    tags: ['Surveys', 'Feedback', 'Automation'], 
+  {
+    id: 'tpl4',
+    name: 'Customer Feedback Survey Flow',
+    description: 'Automatically send feedback surveys after key interactions and analyze results.',
+    category: 'Customer Service',
+    tags: ['Surveys', 'Feedback', 'Automation'],
     icon: 'i-ph:chat-circle-dots-duotone',
     previewUrl: 'https://via.placeholder.com/300x200/6D28D9/FFFFFF?text=Feedback+Survey'
   },
-   { 
-    id: 'tpl5', 
-    name: 'Abandoned Cart Email for E-commerce', 
-    description: 'Recover lost sales by sending timed reminders to customers who abandon their carts.', 
-    category: 'Email Marketing', 
-    tags: ['E-commerce', 'Cart Recovery', 'Automation'], 
+   {
+    id: 'tpl5',
+    name: 'Abandoned Cart Email for E-commerce',
+    description: 'Recover lost sales by sending timed reminders to customers who abandon their carts.',
+    category: 'Email Marketing',
+    tags: ['E-commerce', 'Cart Recovery', 'Automation'],
     icon: 'i-ph:storefront-duotone',
-    previewUrl: 'https://via.placeholder.com/300x200/4F46E5/FFFFFF?text=Cart+Recovery' 
+    previewUrl: 'https://via.placeholder.com/300x200/4F46E5/FFFFFF?text=Cart+Recovery'
   },
-  { 
-    id: 'tpl6', 
-    name: 'Feature Announcement Email', 
-    description: 'Announce new product features to your user base effectively.', 
-    category: 'Product', 
-    tags: ['Announcement', 'Email Marketing'], 
+  {
+    id: 'tpl6',
+    name: 'Feature Announcement Email',
+    description: 'Announce new product features to your user base effectively.',
+    category: 'Product',
+    tags: ['Announcement', 'Email Marketing'],
     icon: 'i-ph:gift-duotone',
     previewUrl: 'https://via.placeholder.com/300x200/10B981/FFFFFF?text=Feature+Release'
   },
@@ -88,7 +88,7 @@ export default function TemplatesPage() {
       setCurrentFilters([...currentFilters, item]);
     }
   };
-  
+
   const filteredTemplates = allTemplates.filter(template => {
     const matchesSearch = template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           template.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -108,8 +108,8 @@ export default function TemplatesPage() {
       {/* Filter and Search Section */}
       <div className="space-y-4">
         <div>
-          <SearchInput 
-            placeholder="Search templates..." 
+          <SearchInput
+            placeholder="Search templates..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -118,8 +118,8 @@ export default function TemplatesPage() {
           <h3 className="text-sm font-medium text-text/80 mb-2">Categories</h3>
           <div className="flex flex-wrap gap-2">
             {allCategories.map(category => (
-              <FilterChip 
-                key={category} 
+              <FilterChip
+                key={category}
                 label={category}
                 isSelected={selectedCategories.includes(category)}
                 onSelect={() => toggleFilter(category, 'category')}
@@ -131,8 +131,8 @@ export default function TemplatesPage() {
           <h3 className="text-sm font-medium text-text/80 mb-2">Tags</h3>
           <div className="flex flex-wrap gap-2">
             {allTags.map(tag => (
-              <FilterChip 
-                key={tag} 
+              <FilterChip
+                key={tag}
                 label={tag}
                 isSelected={selectedTags.includes(tag)}
                 onSelect={() => toggleFilter(tag, 'tag')}
