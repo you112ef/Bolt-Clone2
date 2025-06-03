@@ -92,11 +92,7 @@ const COLOR_PRIMITIVES = {
     white: generateAlphaPalette(BASE_COLORS.white),
     gray: generateAlphaPalette(BASE_COLORS.gray[900]), // Assuming gray is still a scale
     red: generateAlphaPalette(BASE_COLORS.red[500]),    // Assuming red is still a scale
-    // If accent needs an alpha scale, it should use BASE_COLORS.accent (the new single color)
-    // For example: accent: generateAlphaPalette(BASE_COLORS.accent),
-    // Or, if the old accent scale's alpha was intended, that needs clarification.
-    // For now, removing alpha accent generation to avoid using the old scale.
-    // If an alpha variant of the new accent is needed, it can be added here.
+    accent: generateAlphaPalette(BASE_COLORS.accent), // Added alpha scale generation for the new single accent color
   },
 };
 
