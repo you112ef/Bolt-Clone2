@@ -123,36 +123,8 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
             })
           : null}
         {isStreaming && (
-          <div className="text-center w-full text-primary i-svg-spinners:3-dots-fade text-4xl mt-4"></div> {/* Updated streaming indicator color */}
+          <div className="text-center w-full text-primary i-svg-spinners:3-dots-fade text-4xl mt-4"></div>
         </div>
-      </div>
-    );
-  },
-);
-                    {isUserMessage ? (
-                      <UserMessage content={content} />
-                    ) : (
-                      <AssistantMessage
-                        content={content}
-                        annotations={message.annotations}
-                        messageId={messageId}
-                        onRewind={handleRewind}
-                        onFork={handleFork}
-                        append={props.append}
-                        chatMode={props.chatMode}
-                        setChatMode={props.setChatMode}
-                        model={props.model}
-                        provider={props.provider}
-                      />
-                    )}
-                  </div>
-                </div>
-              );
-            })
-          : null}
-        {isStreaming && (
-          <div className="text-center w-full  text-bolt-elements-item-contentAccent i-svg-spinners:3-dots-fade text-4xl mt-4"></div>
-        )}
       </div>
     );
   },
