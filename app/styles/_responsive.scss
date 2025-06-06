@@ -34,3 +34,16 @@ $breakpoint-desktop: $breakpoint-xl;
     @content;
   }
 }
+
+// Additional responsive mixins for better mobile support
+@mixin mobile-landscape {
+  @media (max-width: #{$breakpoint-medium - 1px}) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin touch-device {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}

@@ -239,8 +239,8 @@
  * Hierarchy: Element Token -> (Element Token | Color Tokens) -> Primitives
  */
 :root {
-  --header-height: 3.375rem; /* 54px converted to rem */
-  --chat-max-width: 35rem;
+  --header-height: clamp(3rem, 8vh, 4rem); /* 48px-64px responsive header */
+  --chat-max-width: min(35rem, 95vw); /* Responsive chat width */
   --chat-min-width: min(35.9375rem, 90vw); /* 575px converted to rem with viewport fallback */
   --workbench-width: min(calc(100% - var(--chat-min-width)), 158.5rem); /* 2536px converted to rem */
   --workbench-inner-width: var(--workbench-width);

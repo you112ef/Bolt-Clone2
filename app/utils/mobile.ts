@@ -33,3 +33,30 @@ export function getDeviceType(): 'mobile' | 'tablet' | 'desktop' {
   if (isTablet()) return 'tablet';
   return 'desktop';
 }
+
+export function getViewportDimensions() {
+  if (typeof globalThis === 'undefined') {
+    return { width: 1024, height: 768 }; // Default for SSR
+  }
+  
+  return {
+    width: globalThis.innerWidth || 1024,
+    height: globalThis.innerHeight || 768,
+  };
+}
+
+export function isTouchDevice() {
+  if (typeof globalThis === 'undefined') {
+    return false;
+  }
+  
+  return 'ontouchstart' in globalThis || navigator.maxTouchPoints > 0;
+}
+
+export function isLandscape() {
+  if (typeof globalThis === 'undefined') {
+    return true;
+  }
+  
+  return globalThis.innerWidth > globalThis.innerHeight;
+}

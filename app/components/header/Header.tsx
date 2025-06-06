@@ -7,11 +7,12 @@ export function Header() {
 
   return (
     <header
-      className="flex items-center" // Removed fixed padding
+      className="flex items-center sticky top-0 z-50" // Added sticky positioning and z-index
       style={{
         backgroundColor: 'var(--bolt-header-bg)', // Use CSS var
         boxShadow: '0 2px 5px rgba(0,0,0,0.5)', // Direct style from mock-up
-        padding: 'clamp(0.5rem, 2vw, 0.75rem)' // Responsive padding (8px-12px)
+        padding: 'clamp(0.75rem, 3vw, 1rem)', // Enhanced responsive padding (12px-16px)
+        minHeight: 'var(--header-height)', // Use CSS variable for consistent height
       }}
     >
       {/*
@@ -24,9 +25,18 @@ export function Header() {
       <img
         src="https://bolt-diy.pages.dev/logo.png" // From mock-up
         alt="bolt.diy Logo"
-        className="h-[clamp(1.5rem,4vw,2rem)] ml-2.5" // Responsive height (24px-32px)
+        className="h-[clamp(1.75rem,5vw,2.5rem)] mr-3" // Enhanced responsive height and margin
+        style={{ maxWidth: '100%', height: 'auto' }} // Ensure image scales properly
       />
-      <h1 style={{ fontSize: 'clamp(0.875rem, 3vw, 1.125rem)', margin: '0', color: 'var(--bolt-text-primary)' }}>
+      <h1 
+        className="font-semibold truncate" // Added truncate for long text
+        style={{ 
+          fontSize: 'clamp(1rem, 4vw, 1.25rem)', 
+          margin: '0', 
+          color: 'var(--bolt-text-primary)',
+          lineHeight: '1.2'
+        }}
+      >
         bolt.diy
       </h1>
       {/* Removed: Hamburger icon, ChatDescription, HeaderActionButtons, MobileMenu logic */}

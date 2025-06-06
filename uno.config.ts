@@ -104,11 +104,14 @@ export default defineConfig({
     'transition-theme': 'transition-[background-color,border-color,color] duration-150 bolt-ease-cubic-bezier',
     kdb: 'bg-bolt-elements-code-background text-bolt-elements-code-text py-1 px-1.5 rounded-md',
     'max-w-chat': 'max-w-[var(--chat-max-width)]',
-    // Mobile-first responsive utilities
-    'mobile-padding': 'p-2 sm:p-3 md:p-4',
-    'mobile-text': 'text-sm sm:text-base',
+    // Enhanced mobile-first responsive utilities
+    'mobile-padding': 'p-3 sm:p-4 md:p-6',
+    'mobile-text': 'text-sm sm:text-base md:text-lg',
     'mobile-gap': 'gap-2 sm:gap-3 md:gap-4',
     'responsive-container': 'w-full max-w-full px-4 sm:px-6 lg:px-8',
+    'touch-target': 'min-h-[44px] min-w-[44px]', // Minimum touch target size
+    'mobile-button': 'py-3 px-4 text-base font-medium rounded-lg transition-all duration-200',
+    'mobile-input': 'p-3 text-base rounded-lg border-0 outline-none focus:ring-2',
   },
   rules: [
     /**

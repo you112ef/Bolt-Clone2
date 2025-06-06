@@ -64,7 +64,8 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
         'relative bg-bolt-elements-background-depth-2 rounded-lg border border-bolt-elements-borderColor w-full max-w-chat mx-auto z-prompt',
       )}
       style={{
-        padding: 'clamp(0.5rem, 2.5vw, 0.625rem)' // Responsive padding (8px-10px)
+        padding: 'clamp(0.75rem, 3vw, 1rem)', // Enhanced responsive padding (12px-16px)
+        margin: 'clamp(0.5rem, 2vw, 1rem)', // Add responsive margin
       }}
     >
       {/* PromptEffectContainer hidden on mobile */}
@@ -160,16 +161,17 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
           ref={props.textareaRef}
           rows={4}
           className={classNames(
-            'w-full rounded-md outline-none resize-none', // Removed fixed padding and text size
+            'w-full rounded-md outline-none resize-none border-0', // Enhanced mobile styling
             'bg-[var(--bolt-input-bg)] text-[var(--bolt-input-text)]', // Colors from CSS vars
             'placeholder-bolt-elements-textTertiary', // Kept placeholder
-            'transition-all duration-200 hover:border-bolt-elements-focus', // Kept existing transition/hover
+            'transition-all duration-200 hover:border-bolt-elements-focus focus:ring-2 focus:ring-bolt-elements-focus', // Enhanced focus states
           )}
           style={{
-            padding: 'clamp(0.5rem, 2vw, 0.75rem)', // Responsive padding (8px-12px)
-            fontSize: 'clamp(0.875rem, 2.5vw, 1rem)', // Responsive font size (14px-16px)
+            padding: 'clamp(0.75rem, 3vw, 1rem)', // Enhanced responsive padding (12px-16px)
+            fontSize: 'clamp(0.875rem, 3vw, 1rem)', // Enhanced responsive font size (14px-16px)
             lineHeight: '1.5',
-            minHeight: 'clamp(4rem, 8vh, 6rem)', // Responsive min height (64px-96px)
+            minHeight: 'clamp(5rem, 12vh, 8rem)', // Enhanced responsive min height (80px-128px)
+            maxHeight: 'clamp(12rem, 30vh, 20rem)', // Add responsive max height
           }}
           onDragEnter={(e) => { /* Kept for desktop if needed, but may be less relevant for mobile */
             e.preventDefault();
@@ -234,12 +236,15 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
 
       {/* New Main Action Button */}
       <Button
-        className="w-full rounded-md mb-2.5" // Removed fixed text size and padding
+        className="w-full rounded-lg mb-3 font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]" // Enhanced mobile styling
         style={{
           background: 'linear-gradient(135deg, var(--bolt-button-gradient-start), var(--bolt-button-gradient-end))',
           color: 'var(--bolt-text-primary, #fff)', // Ensure fallback for color
-          padding: 'clamp(0.5rem, 2vw, 0.75rem)', // Responsive padding (8px-12px)
-          fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', // Responsive font size (12px-14px)
+          padding: 'clamp(0.875rem, 3vw, 1.125rem)', // Enhanced responsive padding (14px-18px)
+          fontSize: 'clamp(0.875rem, 3vw, 1rem)', // Enhanced responsive font size (14px-16px)
+          minHeight: 'clamp(2.75rem, 8vh, 3.5rem)', // Add responsive min height for better touch targets
+          border: 'none',
+          cursor: 'pointer',
         }}
         // For hover: define a variant or use group hover if Button supports it, or add custom CSS.
         // For now, hover will use default Button hover or be plain.

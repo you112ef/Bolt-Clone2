@@ -17,9 +17,22 @@ body {
   background-color: var(--bolt-body-bg); // Use variable
   color: var(--bolt-text-primary);       // Use variable
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: clamp(0.75rem, 2.5vw, 0.875rem); // Responsive base font size (12px-14px)
+  font-size: clamp(0.875rem, 2.5vw, 1rem); // Responsive base font size (14px-16px)
   line-height: 1.5;
   overflow-x: hidden;
+}
+
+/* Enhanced mobile viewport handling */
+@media (max-width: 640px) {
+  html {
+    font-size: clamp(0.75rem, 4vw, 0.875rem); // Smaller base font on mobile
+  }
+  
+  body {
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 /* Base form styles (TODO: Integrate carefully with UnoCSS, possibly via component classes or @apply)
