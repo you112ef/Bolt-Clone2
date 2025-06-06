@@ -7,10 +7,11 @@ export function Header() {
 
   return (
     <header
-      className="flex items-center p-2" // p-2 is 8px. shadow-md is removed as direct boxShadow is applied.
+      className="flex items-center" // Removed fixed padding
       style={{
         backgroundColor: 'var(--bolt-header-bg)', // Use CSS var
-        boxShadow: '0 2px 5px rgba(0,0,0,0.5)' // Direct style from mock-up
+        boxShadow: '0 2px 5px rgba(0,0,0,0.5)', // Direct style from mock-up
+        padding: 'clamp(0.5rem, 2vw, 0.75rem)' // Responsive padding (8px-12px)
       }}
     >
       {/*
@@ -23,9 +24,9 @@ export function Header() {
       <img
         src="https://bolt-diy.pages.dev/logo.png" // From mock-up
         alt="bolt.diy Logo"
-        className="h-[30px] ml-2.5" // Corresponds to 10px margin-left.
+        className="h-[clamp(1.5rem,4vw,2rem)] ml-2.5" // Responsive height (24px-32px)
       />
-      <h1 style={{ fontSize: '16px', margin: '0', color: 'var(--bolt-text-primary)' }}>
+      <h1 style={{ fontSize: 'clamp(0.875rem, 3vw, 1.125rem)', margin: '0', color: 'var(--bolt-text-primary)' }}>
         bolt.diy
       </h1>
       {/* Removed: Hamburger icon, ChatDescription, HeaderActionButtons, MobileMenu logic */}

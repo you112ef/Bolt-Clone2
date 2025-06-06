@@ -1,8 +1,36 @@
-// Standard breakpoints
-$breakpoint-small: 600px; // Mobile devices
-$breakpoint-medium: 1024px; // Tablet devices
-$breakpoint-large: 1280px; // Small desktop
+// Enhanced responsive breakpoints for better mobile coverage
+$breakpoint-xs: 320px;   // Extra small mobile devices
+$breakpoint-small: 640px; // Small mobile devices (matches Tailwind sm)
+$breakpoint-medium: 768px; // Tablets (matches Tailwind md)
+$breakpoint-large: 1024px; // Small desktop (matches Tailwind lg)
+$breakpoint-xl: 1280px;   // Large desktop (matches Tailwind xl)
+$breakpoint-2xl: 1536px;  // Extra large desktop (matches Tailwind 2xl)
+
+// Legacy breakpoints for backward compatibility
+$breakpoint-mobile: $breakpoint-small;
+$breakpoint-tablet: $breakpoint-large;
+$breakpoint-desktop: $breakpoint-xl;
+
 // Example media query usage:
 // @media (max-width: $breakpoint-small) { /* styles for mobile */ }
 // @media (min-width: #{$breakpoint-small + 1px}) and (max-width: $breakpoint-medium) { /* styles for tablet */ }
 // @media (min-width: #{$breakpoint-medium + 1px}) { /* styles for desktop */ }
+
+// Mobile-first responsive mixins
+@mixin mobile-only {
+  @media (max-width: #{$breakpoint-small - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-and-up {
+  @media (min-width: $breakpoint-medium) {
+    @content;
+  }
+}
+
+@mixin desktop-and-up {
+  @media (min-width: $breakpoint-large) {
+    @content;
+  }
+}

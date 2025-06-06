@@ -61,9 +61,11 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
   return (
     <div
       className={classNames(
-        // p-2.5 for 10px padding from mock-up's .section
-        'relative bg-bolt-elements-background-depth-2 p-2.5 rounded-lg border border-bolt-elements-borderColor w-full max-w-chat mx-auto z-prompt',
+        'relative bg-bolt-elements-background-depth-2 rounded-lg border border-bolt-elements-borderColor w-full max-w-chat mx-auto z-prompt',
       )}
+      style={{
+        padding: 'clamp(0.5rem, 2.5vw, 0.625rem)' // Responsive padding (8px-10px)
+      }}
     >
       {/* PromptEffectContainer hidden on mobile */}
       <svg className={classNames(styles.PromptEffectContainer, 'hidden sm:block')}>
@@ -158,11 +160,17 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
           ref={props.textareaRef}
           rows={4}
           className={classNames(
-            'w-full p-2 rounded-md text-sm', // Simplified padding and border-radius
+            'w-full rounded-md outline-none resize-none', // Removed fixed padding and text size
             'bg-[var(--bolt-input-bg)] text-[var(--bolt-input-text)]', // Colors from CSS vars
-            'placeholder-bolt-elements-textTertiary outline-none resize-none', // Kept placeholder and outline/resize
+            'placeholder-bolt-elements-textTertiary', // Kept placeholder
             'transition-all duration-200 hover:border-bolt-elements-focus', // Kept existing transition/hover
           )}
+          style={{
+            padding: 'clamp(0.5rem, 2vw, 0.75rem)', // Responsive padding (8px-12px)
+            fontSize: 'clamp(0.875rem, 2.5vw, 1rem)', // Responsive font size (14px-16px)
+            lineHeight: '1.5',
+            minHeight: 'clamp(4rem, 8vh, 6rem)', // Responsive min height (64px-96px)
+          }}
           onDragEnter={(e) => { /* Kept for desktop if needed, but may be less relevant for mobile */
             e.preventDefault();
             e.currentTarget.style.border = '2px solid #1488fc';
@@ -226,10 +234,12 @@ export const ChatBox: React.FC<ChatBoxProps> = (props) => {
 
       {/* New Main Action Button */}
       <Button
-        className="w-full text-xs p-2 rounded-md mb-2.5" // p-2 for 8px padding
+        className="w-full rounded-md mb-2.5" // Removed fixed text size and padding
         style={{
           background: 'linear-gradient(135deg, var(--bolt-button-gradient-start), var(--bolt-button-gradient-end))',
-          color: 'var(--bolt-text-primary, #fff)' // Ensure fallback for color
+          color: 'var(--bolt-text-primary, #fff)', // Ensure fallback for color
+          padding: 'clamp(0.5rem, 2vw, 0.75rem)', // Responsive padding (8px-12px)
+          fontSize: 'clamp(0.75rem, 2vw, 0.875rem)', // Responsive font size (12px-14px)
         }}
         // For hover: define a variant or use group hover if Button supports it, or add custom CSS.
         // For now, hover will use default Button hover or be plain.
